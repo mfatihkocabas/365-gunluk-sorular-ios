@@ -1,0 +1,2192 @@
+[
+  {
+    "id": 1,
+    "text": "Hayatınızda şu anda en önemli olan şey nedir?",
+    "category": "self_reflection",
+    "dayOfYear": 1
+  },
+  {
+    "id": 2,
+    "text": "Bugün kendinize ne gibi bir iyilik yaptınız?",
+    "category": "self_reflection",
+    "dayOfYear": 2
+  },
+  {
+    "id": 3,
+    "text": "En son ne zaman birine teşekkür ettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 3
+  },
+  {
+    "id": 4,
+    "text": "Hayatınızda en önemli öğretmen kim oldu?",
+    "category": "relationships",
+    "dayOfYear": 4
+  },
+  {
+    "id": 5,
+    "text": "En son ne zaman birine ihtiyacı olmadan yardım ettiniz?",
+    "category": "relationships",
+    "dayOfYear": 5
+  },
+  {
+    "id": 6,
+    "text": "Geçen yıl verdiğiniz en iyi kararın ne olduğunu düşünüyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 6
+  },
+  {
+    "id": 7,
+    "text": "Hangi konuda daha sabırlı olmaya ihtiyacınız var?",
+    "category": "personal_growth",
+    "dayOfYear": 7
+  },
+  {
+    "id": 8,
+    "text": "En çok hangi konuda merak ediyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 8
+  },
+  {
+    "id": 9,
+    "text": "Son bir haftada sizi en çok mutlu eden şey neydi?",
+    "category": "emotions",
+    "dayOfYear": 9
+  },
+  {
+    "id": 10,
+    "text": "Gelecek için en büyük umudunuz nedir?",
+    "category": "future",
+    "dayOfYear": 10
+  },
+  {
+    "id": 11,
+    "text": "Hangi özelliğinizle en çok gurur duyuyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 11
+  },
+  {
+    "id": 12,
+    "text": "En son ne zaman tamamen kendiniz oldunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 12
+  },
+  {
+    "id": 13,
+    "text": "Hayatınızı değiştiren bir kitap, film veya kişi var mı?",
+    "category": "memories",
+    "dayOfYear": 13
+  },
+  {
+    "id": 14,
+    "text": "Bir gün geri dönebilseydiniz hangi günü seçerdiniz?",
+    "category": "memories",
+    "dayOfYear": 14
+  },
+  {
+    "id": 15,
+    "text": "Şu anda en çok kimin yanında olmak istiyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 15
+  },
+  {
+    "id": 16,
+    "text": "Hayatınızda 'keşke' dediğiniz bir şey var mı?",
+    "category": "self_reflection",
+    "dayOfYear": 16
+  },
+  {
+    "id": 17,
+    "text": "En büyük korkularınızdan biri nedir?",
+    "category": "emotions",
+    "dayOfYear": 17
+  },
+  {
+    "id": 18,
+    "text": "Kendinizi en güçlü hissettiğiniz an ne zaman oldu?",
+    "category": "personal_growth",
+    "dayOfYear": 18
+  },
+  {
+    "id": 19,
+    "text": "Bir yıl sonra kendinizi nerede görmek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 19
+  },
+  {
+    "id": 20,
+    "text": "Hayatınızda en değerli olan şey nedir?",
+    "category": "gratitude",
+    "dayOfYear": 20
+  },
+  {
+    "id": 21,
+    "text": "En son ne zaman yeni bir şey öğrendiniz?",
+    "category": "personal_growth",
+    "dayOfYear": 21
+  },
+  {
+    "id": 22,
+    "text": "Bugün hangi küçük mutlulukları fark ettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 22
+  },
+  {
+    "id": 23,
+    "text": "Kendinizle gurur duyduğunuz bir başarınız nedir?",
+    "category": "self_reflection",
+    "dayOfYear": 23
+  },
+  {
+    "id": 24,
+    "text": "Hangi alışkanlığınızı değiştirmek istiyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 24
+  },
+  {
+    "id": 25,
+    "text": "Size güç veren bir anınız nedir?",
+    "category": "memories",
+    "dayOfYear": 25
+  },
+  {
+    "id": 26,
+    "text": "En çok hangi konuda cesarete ihtiyacınız var?",
+    "category": "personal_growth",
+    "dayOfYear": 26
+  },
+  {
+    "id": 27,
+    "text": "Bugün kendinizi nasıl hissediyorsunuz ve neden?",
+    "category": "emotions",
+    "dayOfYear": 27
+  },
+  {
+    "id": 28,
+    "text": "Hayatınızda hangi ilişki en çok değer katıyor?",
+    "category": "relationships",
+    "dayOfYear": 28
+  },
+  {
+    "id": 29,
+    "text": "En son ne zaman komfor alanınızdan çıktınız?",
+    "category": "personal_growth",
+    "dayOfYear": 29
+  },
+  {
+    "id": 30,
+    "text": "Gelecek ay kendinize hangi hediyeyi vermek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 30
+  },
+  {
+    "id": 31,
+    "text": "Bugün hangi düşünceleriniz sizi en çok meşgul etti?",
+    "category": "self_reflection",
+    "dayOfYear": 31
+  },
+  {
+    "id": 32,
+    "text": "En çok hangi konuda kendini geliştirmek istiyorsun?",
+    "category": "personal_growth",
+    "dayOfYear": 32
+  },
+  {
+    "id": 33,
+    "text": "Hayatınızda hangi şeyler size enerji veriyor?",
+    "category": "lifestyle",
+    "dayOfYear": 33
+  },
+  {
+    "id": 34,
+    "text": "En son ne zaman gerçekten gülmüştünüz?",
+    "category": "emotions",
+    "dayOfYear": 34
+  },
+  {
+    "id": 35,
+    "text": "Hangi konularda daha anlayışlı olmaya çalışıyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 35
+  },
+  {
+    "id": 36,
+    "text": "Bugün size ilham veren bir şey oldu mu?",
+    "category": "creativity",
+    "dayOfYear": 36
+  },
+  {
+    "id": 37,
+    "text": "En çok hangi anılarınızı hatırlamayı seviyorsunuz?",
+    "category": "memories",
+    "dayOfYear": 37
+  },
+  {
+    "id": 38,
+    "text": "Kendinize daha fazla zaman ayırmak için ne yapabilirsiniz?",
+    "category": "lifestyle",
+    "dayOfYear": 38
+  },
+  {
+    "id": 39,
+    "text": "Hayalinizdeki mükemmel bir gün nasıl olurdu?",
+    "category": "future",
+    "dayOfYear": 39
+  },
+  {
+    "id": 40,
+    "text": "En son ne zaman birinin size verdiği tavsiyeyi dinlediniz?",
+    "category": "relationships",
+    "dayOfYear": 40
+  },
+  {
+    "id": 41,
+    "text": "Bugün hangi konuda minnettarlık hissettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 41
+  },
+  {
+    "id": 42,
+    "text": "Kendinizi motive etmek için hangi yöntemleri kullanıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 42
+  },
+  {
+    "id": 43,
+    "text": "Hangi konularda daha sabırlı olmaya çalışıyorsunuz?",
+    "category": "emotions",
+    "dayOfYear": 43
+  },
+  {
+    "id": 44,
+    "text": "En çok hangi değerleriniz hayatınızı yönlendiriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 44
+  },
+  {
+    "id": 45,
+    "text": "Bugün kendinize nasıl bir iyilik yapabilirsiniz?",
+    "category": "lifestyle",
+    "dayOfYear": 45
+  },
+  {
+    "id": 46,
+    "text": "En son ne zaman tamamen o ana odaklandınız?",
+    "category": "self_reflection",
+    "dayOfYear": 46
+  },
+  {
+    "id": 47,
+    "text": "Hangi konularda daha fazla risk almaya isteklisiniz?",
+    "category": "personal_growth",
+    "dayOfYear": 47
+  },
+  {
+    "id": 48,
+    "text": "Bugün hangi küçük başarınızı kutlayabilirsiniz?",
+    "category": "gratitude",
+    "dayOfYear": 48
+  },
+  {
+    "id": 49,
+    "text": "En çok hangi anılarınız size güç veriyor?",
+    "category": "memories",
+    "dayOfYear": 49
+  },
+  {
+    "id": 50,
+    "text": "Gelecekte hangi becerileri öğrenmek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 50
+  },
+  {
+    "id": 51,
+    "text": "Hayatınızda hangi değişiklikleri yapmak istiyorsunuz?",
+    "category": "future",
+    "dayOfYear": 51
+  },
+  {
+    "id": 52,
+    "text": "En son ne zaman kendinizi gerçekten dinlendirdiniz?",
+    "category": "lifestyle",
+    "dayOfYear": 52
+  },
+  {
+    "id": 53,
+    "text": "Bugün hangi duyguları deneyimlediniz?",
+    "category": "emotions",
+    "dayOfYear": 53
+  },
+  {
+    "id": 54,
+    "text": "Hangi konularda daha açık fikirli olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 54
+  },
+  {
+    "id": 55,
+    "text": "En çok hangi aktiviteler sizi mutlu ediyor?",
+    "category": "lifestyle",
+    "dayOfYear": 55
+  },
+  {
+    "id": 56,
+    "text": "Kendinize hangi konularda daha nazik olmaya çalışıyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 56
+  },
+  {
+    "id": 57,
+    "text": "Bugün hangi fırsatları gözden kaçırdığınızı düşünüyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 57
+  },
+  {
+    "id": 58,
+    "text": "En son ne zaman gerçekten kreatif hissettiniz?",
+    "category": "creativity",
+    "dayOfYear": 58
+  },
+  {
+    "id": 59,
+    "text": "Hangi konularda daha iyi iletişim kurmaya çalışıyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 59
+  },
+  {
+    "id": 60,
+    "text": "Bugün hangi konularda kendinizi geliştirmek istiyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 60
+  },
+  {
+    "id": 61,
+    "text": "En çok hangi anılarınız size huzur veriyor?",
+    "category": "memories",
+    "dayOfYear": 61
+  },
+  {
+    "id": 62,
+    "text": "Gelecek için hangi planlarınız sizi heyecanlandırıyor?",
+    "category": "future",
+    "dayOfYear": 62
+  },
+  {
+    "id": 63,
+    "text": "Bugün kendinizi nasıl motive edebilirsiniz?",
+    "category": "personal_growth",
+    "dayOfYear": 63
+  },
+  {
+    "id": 64,
+    "text": "En son ne zaman gerçekten müteşekkir hissettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 64
+  },
+  {
+    "id": 65,
+    "text": "Hangi konularda daha cesur olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 65
+  },
+  {
+    "id": 66,
+    "text": "Bugün hangi küçük mutlulukları fark ettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 66
+  },
+  {
+    "id": 67,
+    "text": "En çok hangi değerlerinizi korumaya çalışıyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 67
+  },
+  {
+    "id": 68,
+    "text": "Kendinizi en rahat hangi ortamlarda hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 68
+  },
+  {
+    "id": 69,
+    "text": "Bugün hangi konularda daha anlayışlı olmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 69
+  },
+  {
+    "id": 70,
+    "text": "En son ne zaman kendinizi gerçekten özgür hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 70
+  },
+  {
+    "id": 71,
+    "text": "Hangi konularda daha disiplinli olmaya ihtiyacınız var?",
+    "category": "personal_growth",
+    "dayOfYear": 71
+  },
+  {
+    "id": 72,
+    "text": "Bugün hangi deneyimler size öğretti bir şeyler?",
+    "category": "personal_growth",
+    "dayOfYear": 72
+  },
+  {
+    "id": 73,
+    "text": "En çok hangi anılarınız size ilham veriyor?",
+    "category": "memories",
+    "dayOfYear": 73
+  },
+  {
+    "id": 74,
+    "text": "Gelecekte hangi hedeflerinizi gerçekleştirmek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 74
+  },
+  {
+    "id": 75,
+    "text": "Bugün kendinize hangi konularda daha sabırlı olmaya söz verebilirsiniz?",
+    "category": "emotions",
+    "dayOfYear": 75
+  },
+  {
+    "id": 76,
+    "text": "En son ne zaman gerçekten yaratıcı bir çözüm buldunuz?",
+    "category": "creativity",
+    "dayOfYear": 76
+  },
+  {
+    "id": 77,
+    "text": "Hangi konularda daha özgüvenli olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 77
+  },
+  {
+    "id": 78,
+    "text": "Bugün hangi küçük iyiliklerle karşılaştınız?",
+    "category": "gratitude",
+    "dayOfYear": 78
+  },
+  {
+    "id": 79,
+    "text": "En çok hangi değişiklikler hayatınızı olumlu etkiledi?",
+    "category": "self_reflection",
+    "dayOfYear": 79
+  },
+  {
+    "id": 80,
+    "text": "Kendinizi en mutlu hangi aktiviteler yaparken hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 80
+  },
+  {
+    "id": 81,
+    "text": "Bugün hangi konularda daha empati kurmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 81
+  },
+  {
+    "id": 82,
+    "text": "En son ne zaman gerçekten huzurlu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 82
+  },
+  {
+    "id": 83,
+    "text": "Hangi konularda daha organize olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 83
+  },
+  {
+    "id": 84,
+    "text": "Bugün hangi fırsatları değerlendirmek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 84
+  },
+  {
+    "id": 85,
+    "text": "En çok hangi anılarınız size güven veriyor?",
+    "category": "memories",
+    "dayOfYear": 85
+  },
+  {
+    "id": 86,
+    "text": "Gelecekte hangi deneyimleri yaşamak istiyorsunuz?",
+    "category": "future",
+    "dayOfYear": 86
+  },
+  {
+    "id": 87,
+    "text": "Bugün kendinize hangi konularda daha merhametli davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 87
+  },
+  {
+    "id": 88,
+    "text": "En son ne zaman gerçekten dinlendirici bir gün geçirdiniz?",
+    "category": "lifestyle",
+    "dayOfYear": 88
+  },
+  {
+    "id": 89,
+    "text": "Hangi konularda daha odaklanmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 89
+  },
+  {
+    "id": 90,
+    "text": "Bugün hangi küçük başarıları kutlayabilirsiniz?",
+    "category": "gratitude",
+    "dayOfYear": 90
+  },
+  {
+    "id": 91,
+    "text": "En çok hangi özelliklerinizi geliştirmek istiyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 91
+  },
+  {
+    "id": 92,
+    "text": "Kendinizi en güçlü hangi konularda hissediyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 92
+  },
+  {
+    "id": 93,
+    "text": "Bugün hangi konularda daha pozitif düşünmeye çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 93
+  },
+  {
+    "id": 94,
+    "text": "En son ne zaman gerçekten ilham verici bir şeyle karşılaştınız?",
+    "category": "creativity",
+    "dayOfYear": 94
+  },
+  {
+    "id": 95,
+    "text": "Hangi konularda daha hoşgörülü olmaya çalışıyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 95
+  },
+  {
+    "id": 96,
+    "text": "Bugün hangi deneyimler size perspektif kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 96
+  },
+  {
+    "id": 97,
+    "text": "En çok hangi anılarınız size umut veriyor?",
+    "category": "memories",
+    "dayOfYear": 97
+  },
+  {
+    "id": 98,
+    "text": "Gelecek için hangi hazırlıkları yapmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 98
+  },
+  {
+    "id": 99,
+    "text": "Bugün kendinize hangi konularda daha anlayışlı davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 99
+  },
+  {
+    "id": 100,
+    "text": "En son ne zaman gerçekten başarılı hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 100
+  },
+  {
+    "id": 101,
+    "text": "Bu yılın ilk 100 günündeki en önemli öğrendiğiniz şey nedir?",
+    "category": "self_reflection",
+    "dayOfYear": 101
+  },
+  {
+    "id": 102,
+    "text": "Hangi alışkanlıklarınız size en çok fayda sağlıyor?",
+    "category": "lifestyle",
+    "dayOfYear": 102
+  },
+  {
+    "id": 103,
+    "text": "Bugün hangi konularda daha akılcı kararlar almaya çalıştınız?",
+    "category": "personal_growth",
+    "dayOfYear": 103
+  },
+  {
+    "id": 104,
+    "text": "En çok hangi değerleriniz kararlarınızı etkiliyor?",
+    "category": "self_reflection",
+    "dayOfYear": 104
+  },
+  {
+    "id": 105,
+    "text": "Kendinizi en yaratıcı hangi anlarda hissediyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 105
+  },
+  {
+    "id": 106,
+    "text": "Bugün hangi küçük iyilikler gününüzü güzelleştirdi?",
+    "category": "gratitude",
+    "dayOfYear": 106
+  },
+  {
+    "id": 107,
+    "text": "En son ne zaman gerçekten meraklı hissettiniz?",
+    "category": "personal_growth",
+    "dayOfYear": 107
+  },
+  {
+    "id": 108,
+    "text": "Hangi konularda daha esnek olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 108
+  },
+  {
+    "id": 109,
+    "text": "Bugün hangi deneyimler size yeni bakış açıları kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 109
+  },
+  {
+    "id": 110,
+    "text": "En çok hangi anılarınız size neşe veriyor?",
+    "category": "memories",
+    "dayOfYear": 110
+  },
+  {
+    "id": 111,
+    "text": "Gelecekte hangi becerilerinizi geliştirmek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 111
+  },
+  {
+    "id": 112,
+    "text": "Bugün kendinize hangi konularda daha destekleyici davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 112
+  },
+  {
+    "id": 113,
+    "text": "En son ne zaman gerçekten heyecanlı hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 113
+  },
+  {
+    "id": 114,
+    "text": "Hangi konularda daha spontane olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 114
+  },
+  {
+    "id": 115,
+    "text": "Bugün hangi fırsatları fark etmeye çalıştınız?",
+    "category": "goals",
+    "dayOfYear": 115
+  },
+  {
+    "id": 116,
+    "text": "En çok hangi özellikleriniz size güven veriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 116
+  },
+  {
+    "id": 117,
+    "text": "Kendinizi en huzurlu hangi ortamlarda hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 117
+  },
+  {
+    "id": 118,
+    "text": "Bugün hangi konularda daha iyi dinlemeye çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 118
+  },
+  {
+    "id": 119,
+    "text": "En son ne zaman gerçekten gururlu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 119
+  },
+  {
+    "id": 120,
+    "text": "Hangi konularda daha tutarlı olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 120
+  },
+  {
+    "id": 121,
+    "text": "Bugün hangi küçük adımlar hedefinize yaklaştırdı?",
+    "category": "goals",
+    "dayOfYear": 121
+  },
+  {
+    "id": 122,
+    "text": "En çok hangi anılarınız size cesaret veriyor?",
+    "category": "memories",
+    "dayOfYear": 122
+  },
+  {
+    "id": 123,
+    "text": "Gelecekte hangi konularda daha bilgili olmak istiyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 123
+  },
+  {
+    "id": 124,
+    "text": "Bugün kendinize hangi konularda daha hoşgörülü davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 124
+  },
+  {
+    "id": 125,
+    "text": "En son ne zaman gerçekten rahatlamış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 125
+  },
+  {
+    "id": 126,
+    "text": "Hangi konularda daha proaktif olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 126
+  },
+  {
+    "id": 127,
+    "text": "Bugün hangi deneyimler size mutluluk verdi?",
+    "category": "gratitude",
+    "dayOfYear": 127
+  },
+  {
+    "id": 128,
+    "text": "En çok hangi değişiklikler yaşam kalitenizi artırdı?",
+    "category": "lifestyle",
+    "dayOfYear": 128
+  },
+  {
+    "id": 129,
+    "text": "Kendinizi en güvende hangi durumlarda hissediyorsunuz?",
+    "category": "emotions",
+    "dayOfYear": 129
+  },
+  {
+    "id": 130,
+    "text": "Bugün hangi konularda daha minnettarlık göstermeye çalıştınız?",
+    "category": "gratitude",
+    "dayOfYear": 130
+  },
+  {
+    "id": 131,
+    "text": "En son ne zaman gerçekten şaşkın hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 131
+  },
+  {
+    "id": 132,
+    "text": "Hangi konularda daha dengeli olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 132
+  },
+  {
+    "id": 133,
+    "text": "Bugün hangi fırsatları yaratmaya çalıştınız?",
+    "category": "goals",
+    "dayOfYear": 133
+  },
+  {
+    "id": 134,
+    "text": "En çok hangi anılarınız size motivasyon veriyor?",
+    "category": "memories",
+    "dayOfYear": 134
+  },
+  {
+    "id": 135,
+    "text": "Gelecekte hangi deneyimlere açık olmak istiyorsunuz?",
+    "category": "future",
+    "dayOfYear": 135
+  },
+  {
+    "id": 136,
+    "text": "Bugün kendinize hangi konularda daha cesur davranmaya söz verebilirsiniz?",
+    "category": "personal_growth",
+    "dayOfYear": 136
+  },
+  {
+    "id": 137,
+    "text": "En son ne zaman gerçekten şükran dolu hissettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 137
+  },
+  {
+    "id": 138,
+    "text": "Hangi konularda daha yaratıcı çözümler bulmaya çalışıyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 138
+  },
+  {
+    "id": 139,
+    "text": "Bugün hangi küçük zaferleri kutlayabilirsiniz?",
+    "category": "gratitude",
+    "dayOfYear": 139
+  },
+  {
+    "id": 140,
+    "text": "En çok hangi özelliklerinizi paylaşmaktan hoşlanıyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 140
+  },
+  {
+    "id": 141,
+    "text": "Kendinizi en enerjik hangi aktiviteler yaparken hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 141
+  },
+  {
+    "id": 142,
+    "text": "Bugün hangi konularda daha nazik olmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 142
+  },
+  {
+    "id": 143,
+    "text": "En son ne zaman gerçekten tatmin olmuş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 143
+  },
+  {
+    "id": 144,
+    "text": "Hangi konularda daha objektif olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 144
+  },
+  {
+    "id": 145,
+    "text": "Bugün hangi deneyimler size yeni fikirler verdi?",
+    "category": "creativity",
+    "dayOfYear": 145
+  },
+  {
+    "id": 146,
+    "text": "En çok hangi anılarınız size huzur veriyor?",
+    "category": "memories",
+    "dayOfYear": 146
+  },
+  {
+    "id": 147,
+    "text": "Gelecek için hangi yatırımları yapmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 147
+  },
+  {
+    "id": 148,
+    "text": "Bugün kendinize hangi konularda daha güvenli davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 148
+  },
+  {
+    "id": 149,
+    "text": "En son ne zaman gerçekten keyifli hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 149
+  },
+  {
+    "id": 150,
+    "text": "Yılın yarısını geride bırakırken en çok neyi öğrendiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 150
+  },
+  {
+    "id": 151,
+    "text": "Hangi konularda daha istikrarlı olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 151
+  },
+  {
+    "id": 152,
+    "text": "Bugün hangi fırsatları değerlendirmeye odaklandınız?",
+    "category": "goals",
+    "dayOfYear": 152
+  },
+  {
+    "id": 153,
+    "text": "En çok hangi değerleriniz ilişkilerinizi şekillendiriyor?",
+    "category": "relationships",
+    "dayOfYear": 153
+  },
+  {
+    "id": 154,
+    "text": "Kendinizi en özgür hangi anlarda hissediyorsunuz?",
+    "category": "emotions",
+    "dayOfYear": 154
+  },
+  {
+    "id": 155,
+    "text": "Bugün hangi konularda daha anlayışlı olmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 155
+  },
+  {
+    "id": 156,
+    "text": "En son ne zaman gerçekten umutlu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 156
+  },
+  {
+    "id": 157,
+    "text": "Hangi konularda daha dikkatli olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 157
+  },
+  {
+    "id": 158,
+    "text": "Bugün hangi küçük ilerlemeler sizi mutlu etti?",
+    "category": "gratitude",
+    "dayOfYear": 158
+  },
+  {
+    "id": 159,
+    "text": "En çok hangi anılarınız size güç veriyor?",
+    "category": "memories",
+    "dayOfYear": 159
+  },
+  {
+    "id": 160,
+    "text": "Gelecekte hangi alanlarda uzmanlaşmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 160
+  },
+  {
+    "id": 161,
+    "text": "Bugün kendinize hangi konularda daha destekleyici davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 161
+  },
+  {
+    "id": 162,
+    "text": "En son ne zaman gerçekten büyülenmiş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 162
+  },
+  {
+    "id": 163,
+    "text": "Hangi konularda daha spontane olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 163
+  },
+  {
+    "id": 164,
+    "text": "Bugün hangi deneyimler size perspektif kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 164
+  },
+  {
+    "id": 165,
+    "text": "En çok hangi özelliklerinizi geliştirmek istiyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 165
+  },
+  {
+    "id": 166,
+    "text": "Kendinizi en güvenli hangi kişilerle hissediyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 166
+  },
+  {
+    "id": 167,
+    "text": "Bugün hangi konularda daha sabırlı olmaya çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 167
+  },
+  {
+    "id": 168,
+    "text": "En son ne zaman gerçekten şaşırmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 168
+  },
+  {
+    "id": 169,
+    "text": "Hangi konularda daha organize olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 169
+  },
+  {
+    "id": 170,
+    "text": "Bugün hangi fırsatları yakalamaya odaklandınız?",
+    "category": "goals",
+    "dayOfYear": 170
+  },
+  {
+    "id": 171,
+    "text": "En çok hangi anılarınız size ilham veriyor?",
+    "category": "memories",
+    "dayOfYear": 171
+  },
+  {
+    "id": 172,
+    "text": "Gelecekte hangi deneyimlere daha açık olmak istiyorsunuz?",
+    "category": "future",
+    "dayOfYear": 172
+  },
+  {
+    "id": 173,
+    "text": "Bugün kendinize hangi konularda daha merhametli davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 173
+  },
+  {
+    "id": 174,
+    "text": "En son ne zaman gerçekten coşkulu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 174
+  },
+  {
+    "id": 175,
+    "text": "Hangi konularda daha esnek olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 175
+  },
+  {
+    "id": 176,
+    "text": "Bugün hangi küçük başarıları fark ettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 176
+  },
+  {
+    "id": 177,
+    "text": "En çok hangi değerleriniz size yön veriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 177
+  },
+  {
+    "id": 178,
+    "text": "Kendinizi en yaratıcı hangi durumlarda hissediyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 178
+  },
+  {
+    "id": 179,
+    "text": "Bugün hangi konularda daha pozitif olmaya çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 179
+  },
+  {
+    "id": 180,
+    "text": "En son ne zaman gerçekten merakla dolu hissettiniz?",
+    "category": "personal_growth",
+    "dayOfYear": 180
+  },
+  {
+    "id": 181,
+    "text": "Hangi konularda daha tutarlı olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 181
+  },
+  {
+    "id": 182,
+    "text": "Bugün hangi deneyimler size neşe verdi?",
+    "category": "gratitude",
+    "dayOfYear": 182
+  },
+  {
+    "id": 183,
+    "text": "En çok hangi anılarınız size güven veriyor?",
+    "category": "memories",
+    "dayOfYear": 183
+  },
+  {
+    "id": 184,
+    "text": "Gelecek için hangi becerilerinizi geliştirmek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 184
+  },
+  {
+    "id": 185,
+    "text": "Bugün kendinize hangi konularda daha anlayışlı davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 185
+  },
+  {
+    "id": 186,
+    "text": "En son ne zaman gerçekten heyecanlanmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 186
+  },
+  {
+    "id": 187,
+    "text": "Hangi konularda daha proaktif olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 187
+  },
+  {
+    "id": 188,
+    "text": "Bugün hangi fırsatları değerlendirmeye çalıştınız?",
+    "category": "goals",
+    "dayOfYear": 188
+  },
+  {
+    "id": 189,
+    "text": "En çok hangi özellikleriniz size özgüven veriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 189
+  },
+  {
+    "id": 190,
+    "text": "Kendinizi en rahat hangi aktiviteler yaparken hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 190
+  },
+  {
+    "id": 191,
+    "text": "Bugün hangi konularda daha iyi iletişim kurmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 191
+  },
+  {
+    "id": 192,
+    "text": "En son ne zaman gerçekten dinlendirici hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 192
+  },
+  {
+    "id": 193,
+    "text": "Hangi konularda daha dengeli olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 193
+  },
+  {
+    "id": 194,
+    "text": "Bugün hangi küçük iyilikler gününüzü güzelleştirdi?",
+    "category": "gratitude",
+    "dayOfYear": 194
+  },
+  {
+    "id": 195,
+    "text": "En çok hangi anılarınız size huzur veriyor?",
+    "category": "memories",
+    "dayOfYear": 195
+  },
+  {
+    "id": 196,
+    "text": "Gelecekte hangi konularda daha bilgili olmak istiyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 196
+  },
+  {
+    "id": 197,
+    "text": "Bugün kendinize hangi konularda daha destekleyici davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 197
+  },
+  {
+    "id": 198,
+    "text": "En son ne zaman gerçekten büyülenmiş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 198
+  },
+  {
+    "id": 199,
+    "text": "Hangi konularda daha yaratıcı olmaya çalışıyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 199
+  },
+  {
+    "id": 200,
+    "text": "200 günlük yolculuğunuzda en çok neyi keşfettiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 200
+  },
+  {
+    "id": 201,
+    "text": "Bugün hangi deneyimler size yeni bakış açıları kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 201
+  },
+  {
+    "id": 202,
+    "text": "En çok hangi değerleriniz günlük yaşamınızı etkiliyor?",
+    "category": "self_reflection",
+    "dayOfYear": 202
+  },
+  {
+    "id": 203,
+    "text": "Kendinizi en güçlü hangi anlarda hissediyorsunuz?",
+    "category": "emotions",
+    "dayOfYear": 203
+  },
+  {
+    "id": 204,
+    "text": "Bugün hangi konularda daha sabırlı olmaya çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 204
+  },
+  {
+    "id": 205,
+    "text": "En son ne zaman gerçekten ilham almış hissettiniz?",
+    "category": "creativity",
+    "dayOfYear": 205
+  },
+  {
+    "id": 206,
+    "text": "Hangi konularda daha spontane olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 206
+  },
+  {
+    "id": 207,
+    "text": "Bugün hangi fırsatları yaratmaya odaklandınız?",
+    "category": "goals",
+    "dayOfYear": 207
+  },
+  {
+    "id": 208,
+    "text": "En çok hangi anılarınız size motivasyon veriyor?",
+    "category": "memories",
+    "dayOfYear": 208
+  },
+  {
+    "id": 209,
+    "text": "Gelecekte hangi deneyimlere daha açık olmak istiyorsunuz?",
+    "category": "future",
+    "dayOfYear": 209
+  },
+  {
+    "id": 210,
+    "text": "Bugün kendinize hangi konularda daha nazik davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 210
+  },
+  {
+    "id": 211,
+    "text": "En son ne zaman gerçekten memnun hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 211
+  },
+  {
+    "id": 212,
+    "text": "Hangi konularda daha dikkatli olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 212
+  },
+  {
+    "id": 213,
+    "text": "Bugün hangi küçük zaferleri kutlayabilirsiniz?",
+    "category": "gratitude",
+    "dayOfYear": 213
+  },
+  {
+    "id": 214,
+    "text": "En çok hangi özelliklerinizi paylaşmaktan mutluluk duyuyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 214
+  },
+  {
+    "id": 215,
+    "text": "Kendinizi en huzurlu hangi durumlarda hissediyorsunuz?",
+    "category": "emotions",
+    "dayOfYear": 215
+  },
+  {
+    "id": 216,
+    "text": "Bugün hangi konularda daha empati kurmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 216
+  },
+  {
+    "id": 217,
+    "text": "En son ne zaman gerçekten şaşırmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 217
+  },
+  {
+    "id": 218,
+    "text": "Hangi konularda daha organize olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 218
+  },
+  {
+    "id": 219,
+    "text": "Bugün hangi deneyimler size yeni fikirler verdi?",
+    "category": "creativity",
+    "dayOfYear": 219
+  },
+  {
+    "id": 220,
+    "text": "En çok hangi anılarınız size cesaret veriyor?",
+    "category": "memories",
+    "dayOfYear": 220
+  },
+  {
+    "id": 221,
+    "text": "Gelecek için hangi hazırlıkları yapmaya odaklanıyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 221
+  },
+  {
+    "id": 222,
+    "text": "Bugün kendinize hangi konularda daha hoşgörülü davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 222
+  },
+  {
+    "id": 223,
+    "text": "En son ne zaman gerçekten keyifli hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 223
+  },
+  {
+    "id": 224,
+    "text": "Hangi konularda daha tutarlı olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 224
+  },
+  {
+    "id": 225,
+    "text": "Bugün hangi fırsatları değerlendirmeye çalıştınız?",
+    "category": "goals",
+    "dayOfYear": 225
+  },
+  {
+    "id": 226,
+    "text": "En çok hangi değerleriniz kişiliğinizi şekillendiriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 226
+  },
+  {
+    "id": 227,
+    "text": "Kendinizi en yaratıcı hangi projelerde hissediyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 227
+  },
+  {
+    "id": 228,
+    "text": "Bugün hangi konularda daha pozitif düşünmeye çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 228
+  },
+  {
+    "id": 229,
+    "text": "En son ne zaman gerçekten umutlu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 229
+  },
+  {
+    "id": 230,
+    "text": "Hangi konularda daha esnek olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 230
+  },
+  {
+    "id": 231,
+    "text": "Bugün hangi küçük ilerlemeler sizi mutlu etti?",
+    "category": "gratitude",
+    "dayOfYear": 231
+  },
+  {
+    "id": 232,
+    "text": "En çok hangi anılarınız size güç veriyor?",
+    "category": "memories",
+    "dayOfYear": 232
+  },
+  {
+    "id": 233,
+    "text": "Gelecekte hangi becerilerinizi kullanmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 233
+  },
+  {
+    "id": 234,
+    "text": "Bugün kendinize hangi konularda daha destekleyici davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 234
+  },
+  {
+    "id": 235,
+    "text": "En son ne zaman gerçekten heyecanlanmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 235
+  },
+  {
+    "id": 236,
+    "text": "Hangi konularda daha proaktif olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 236
+  },
+  {
+    "id": 237,
+    "text": "Bugün hangi deneyimler size perspektif kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 237
+  },
+  {
+    "id": 238,
+    "text": "En çok hangi özelliklerinizi geliştirmekten hoşlanıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 238
+  },
+  {
+    "id": 239,
+    "text": "Kendinizi en güvenli hangi ilişkilerde hissediyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 239
+  },
+  {
+    "id": 240,
+    "text": "Bugün hangi konularda daha anlayışlı olmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 240
+  },
+  {
+    "id": 241,
+    "text": "En son ne zaman gerçekten büyülenmiş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 241
+  },
+  {
+    "id": 242,
+    "text": "Hangi konularda daha dengeli olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 242
+  },
+  {
+    "id": 243,
+    "text": "Bugün hangi fırsatları yakalamaya odaklandınız?",
+    "category": "goals",
+    "dayOfYear": 243
+  },
+  {
+    "id": 244,
+    "text": "En çok hangi anılarınız size huzur veriyor?",
+    "category": "memories",
+    "dayOfYear": 244
+  },
+  {
+    "id": 245,
+    "text": "Gelecekte hangi konularda daha deneyimli olmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 245
+  },
+  {
+    "id": 246,
+    "text": "Bugün kendinize hangi konularda daha merhametli davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 246
+  },
+  {
+    "id": 247,
+    "text": "En son ne zaman gerçekten coşkulu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 247
+  },
+  {
+    "id": 248,
+    "text": "Hangi konularda daha yaratıcı çözümler bulmaya çalışıyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 248
+  },
+  {
+    "id": 249,
+    "text": "Bugün hangi küçük başarıları fark ettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 249
+  },
+  {
+    "id": 250,
+    "text": "En çok hangi değerleriniz size kimlik veriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 250
+  },
+  {
+    "id": 251,
+    "text": "Kendinizi en özgür hangi anlarda hissediyorsunuz?",
+    "category": "emotions",
+    "dayOfYear": 251
+  },
+  {
+    "id": 252,
+    "text": "Bugün hangi konularda daha sabırlı olmaya çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 252
+  },
+  {
+    "id": 253,
+    "text": "En son ne zaman gerçekten ilham almış hissettiniz?",
+    "category": "creativity",
+    "dayOfYear": 253
+  },
+  {
+    "id": 254,
+    "text": "Hangi konularda daha dikkatli olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 254
+  },
+  {
+    "id": 255,
+    "text": "Bugün hangi deneyimler size neşe verdi?",
+    "category": "gratitude",
+    "dayOfYear": 255
+  },
+  {
+    "id": 256,
+    "text": "En çok hangi anılarınız size motivasyon veriyor?",
+    "category": "memories",
+    "dayOfYear": 256
+  },
+  {
+    "id": 257,
+    "text": "Gelecekte hangi amaçlara odaklanmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 257
+  },
+  {
+    "id": 258,
+    "text": "Bugün kendinize hangi konularda daha anlayışlı davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 258
+  },
+  {
+    "id": 259,
+    "text": "En son ne zaman gerçekten tatmin olmuş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 259
+  },
+  {
+    "id": 260,
+    "text": "Hangi konularda daha spontane olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 260
+  },
+  {
+    "id": 261,
+    "text": "Bugün hangi fırsatları değerlendirmeye çalıştınız?",
+    "category": "goals",
+    "dayOfYear": 261
+  },
+  {
+    "id": 262,
+    "text": "En çok hangi özelliklerinizi kullanmaktan hoşlanıyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 262
+  },
+  {
+    "id": 263,
+    "text": "Kendinizi en rahat hangi ortamlarda hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 263
+  },
+  {
+    "id": 264,
+    "text": "Bugün hangi konularda daha iyi dinlemeye çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 264
+  },
+  {
+    "id": 265,
+    "text": "En son ne zaman gerçekten şaşırmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 265
+  },
+  {
+    "id": 266,
+    "text": "Hangi konularda daha organize olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 266
+  },
+  {
+    "id": 267,
+    "text": "Bugün hangi deneyimler size yeni bakış açıları kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 267
+  },
+  {
+    "id": 268,
+    "text": "En çok hangi anılarınız size cesaret veriyor?",
+    "category": "memories",
+    "dayOfYear": 268
+  },
+  {
+    "id": 269,
+    "text": "Gelecekte hangi konularda daha yetenekli olmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 269
+  },
+  {
+    "id": 270,
+    "text": "Bugün kendinize hangi konularda daha destekleyici davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 270
+  },
+  {
+    "id": 271,
+    "text": "En son ne zaman gerçekten heyecanlanmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 271
+  },
+  {
+    "id": 272,
+    "text": "Hangi konularda daha proaktif olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 272
+  },
+  {
+    "id": 273,
+    "text": "Bugün hangi küçük iyilikler gününüzü güzelleştirdi?",
+    "category": "gratitude",
+    "dayOfYear": 273
+  },
+  {
+    "id": 274,
+    "text": "En çok hangi değerleriniz hayat felsefenizi oluşturuyor?",
+    "category": "self_reflection",
+    "dayOfYear": 274
+  },
+  {
+    "id": 275,
+    "text": "Kendinizi en yaratıcı hangi çalışmalarda hissediyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 275
+  },
+  {
+    "id": 276,
+    "text": "Bugün hangi konularda daha pozitif olmaya çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 276
+  },
+  {
+    "id": 277,
+    "text": "En son ne zaman gerçekten umutlu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 277
+  },
+  {
+    "id": 278,
+    "text": "Hangi konularda daha tutarlı olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 278
+  },
+  {
+    "id": 279,
+    "text": "Bugün hangi fırsatları yaratmaya odaklandınız?",
+    "category": "goals",
+    "dayOfYear": 279
+  },
+  {
+    "id": 280,
+    "text": "En çok hangi anılarınız size güç veriyor?",
+    "category": "memories",
+    "dayOfYear": 280
+  },
+  {
+    "id": 281,
+    "text": "Gelecekte hangi konularda daha bilgili olmak istiyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 281
+  },
+  {
+    "id": 282,
+    "text": "Bugün kendinize hangi konularda daha nazik davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 282
+  },
+  {
+    "id": 283,
+    "text": "En son ne zaman gerçekten büyülenmiş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 283
+  },
+  {
+    "id": 284,
+    "text": "Hangi konularda daha esnek olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 284
+  },
+  {
+    "id": 285,
+    "text": "Bugün hangi küçük zaferleri kutlayabilirsiniz?",
+    "category": "gratitude",
+    "dayOfYear": 285
+  },
+  {
+    "id": 286,
+    "text": "En çok hangi özelliklerinizi paylaşmaktan mutluluk duyuyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 286
+  },
+  {
+    "id": 287,
+    "text": "Kendinizi en güvenli hangi durumlarda hissediyorsunuz?",
+    "category": "emotions",
+    "dayOfYear": 287
+  },
+  {
+    "id": 288,
+    "text": "Bugün hangi konularda daha empati kurmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 288
+  },
+  {
+    "id": 289,
+    "text": "En son ne zaman gerçekten keyifli hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 289
+  },
+  {
+    "id": 290,
+    "text": "Hangi konularda daha dengeli olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 290
+  },
+  {
+    "id": 291,
+    "text": "Bugün hangi deneyimler size yeni fikirler verdi?",
+    "category": "creativity",
+    "dayOfYear": 291
+  },
+  {
+    "id": 292,
+    "text": "En çok hangi anılarınız size huzur veriyor?",
+    "category": "memories",
+    "dayOfYear": 292
+  },
+  {
+    "id": 293,
+    "text": "Gelecek için hangi konularda hazırlanmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 293
+  },
+  {
+    "id": 294,
+    "text": "Bugün kendinize hangi konularda daha hoşgörülü davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 294
+  },
+  {
+    "id": 295,
+    "text": "En son ne zaman gerçekten coşkulu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 295
+  },
+  {
+    "id": 296,
+    "text": "Hangi konularda daha yaratıcı çözümler bulmaya çalışıyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 296
+  },
+  {
+    "id": 297,
+    "text": "Bugün hangi küçük ilerlemeler sizi mutlu etti?",
+    "category": "gratitude",
+    "dayOfYear": 297
+  },
+  {
+    "id": 298,
+    "text": "En çok hangi değerleriniz size yol gösteriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 298
+  },
+  {
+    "id": 299,
+    "text": "Kendinizi en özgür hangi projelerde hissediyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 299
+  },
+  {
+    "id": 300,
+    "text": "300 günlük yolculuğunuzda en çok hangi konularda büyüdünüz?",
+    "category": "self_reflection",
+    "dayOfYear": 300
+  },
+  {
+    "id": 301,
+    "text": "Bugün hangi konularda daha sabırlı olmaya çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 301
+  },
+  {
+    "id": 302,
+    "text": "En son ne zaman gerçekten ilham almış hissettiniz?",
+    "category": "creativity",
+    "dayOfYear": 302
+  },
+  {
+    "id": 303,
+    "text": "Hangi konularda daha dikkatli olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 303
+  },
+  {
+    "id": 304,
+    "text": "Bugün hangi fırsatları değerlendirmeye çalıştınız?",
+    "category": "goals",
+    "dayOfYear": 304
+  },
+  {
+    "id": 305,
+    "text": "En çok hangi anılarınız size motivasyon veriyor?",
+    "category": "memories",
+    "dayOfYear": 305
+  },
+  {
+    "id": 306,
+    "text": "Gelecekte hangi konularda daha deneyimli olmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 306
+  },
+  {
+    "id": 307,
+    "text": "Bugün kendinize hangi konularda daha destekleyici davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 307
+  },
+  {
+    "id": 308,
+    "text": "En son ne zaman gerçekten tatmin olmuş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 308
+  },
+  {
+    "id": 309,
+    "text": "Hangi konularda daha spontane olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 309
+  },
+  {
+    "id": 310,
+    "text": "Bugün hangi küçük başarıları fark ettiniz?",
+    "category": "gratitude",
+    "dayOfYear": 310
+  },
+  {
+    "id": 311,
+    "text": "En çok hangi özelliklerinizi kullanmaktan hoşlanıyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 311
+  },
+  {
+    "id": 312,
+    "text": "Kendinizi en rahat hangi aktiviteler yaparken hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 312
+  },
+  {
+    "id": 313,
+    "text": "Bugün hangi konularda daha iyi iletişim kurmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 313
+  },
+  {
+    "id": 314,
+    "text": "En son ne zaman gerçekten şaşırmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 314
+  },
+  {
+    "id": 315,
+    "text": "Hangi konularda daha organize olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 315
+  },
+  {
+    "id": 316,
+    "text": "Bugün hangi deneyimler size perspektif kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 316
+  },
+  {
+    "id": 317,
+    "text": "En çok hangi anılarınız size cesaret veriyor?",
+    "category": "memories",
+    "dayOfYear": 317
+  },
+  {
+    "id": 318,
+    "text": "Gelecekte hangi hedeflerinizi gerçekleştirmek istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 318
+  },
+  {
+    "id": 319,
+    "text": "Bugün kendinize hangi konularda daha merhametli davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 319
+  },
+  {
+    "id": 320,
+    "text": "En son ne zaman gerçekten heyecanlanmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 320
+  },
+  {
+    "id": 321,
+    "text": "Hangi konularda daha proaktif olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 321
+  },
+  {
+    "id": 322,
+    "text": "Bugün hangi küçük iyilikler gününüzü güzelleştirdi?",
+    "category": "gratitude",
+    "dayOfYear": 322
+  },
+  {
+    "id": 323,
+    "text": "En çok hangi değerleriniz size kimlik veriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 323
+  },
+  {
+    "id": 324,
+    "text": "Kendinizi en yaratıcı hangi durumlarda hissediyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 324
+  },
+  {
+    "id": 325,
+    "text": "Bugün hangi konularda daha pozitif düşünmeye çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 325
+  },
+  {
+    "id": 326,
+    "text": "En son ne zaman gerçekten umutlu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 326
+  },
+  {
+    "id": 327,
+    "text": "Hangi konularda daha tutarlı olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 327
+  },
+  {
+    "id": 328,
+    "text": "Bugün hangi fırsatları yakalamaya odaklandınız?",
+    "category": "goals",
+    "dayOfYear": 328
+  },
+  {
+    "id": 329,
+    "text": "En çok hangi anılarınız size güç veriyor?",
+    "category": "memories",
+    "dayOfYear": 329
+  },
+  {
+    "id": 330,
+    "text": "Gelecekte hangi konularda daha bilgili olmak istiyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 330
+  },
+  {
+    "id": 331,
+    "text": "Bugün kendinize hangi konularda daha anlayışlı davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 331
+  },
+  {
+    "id": 332,
+    "text": "En son ne zaman gerçekten büyülenmiş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 332
+  },
+  {
+    "id": 333,
+    "text": "Hangi konularda daha esnek olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 333
+  },
+  {
+    "id": 334,
+    "text": "Bugün hangi küçük zaferleri kutlayabilirsiniz?",
+    "category": "gratitude",
+    "dayOfYear": 334
+  },
+  {
+    "id": 335,
+    "text": "En çok hangi özelliklerinizi paylaşmaktan mutluluk duyuyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 335
+  },
+  {
+    "id": 336,
+    "text": "Kendinizi en güvenli hangi ilişkilerde hissediyorsunuz?",
+    "category": "relationships",
+    "dayOfYear": 336
+  },
+  {
+    "id": 337,
+    "text": "Bugün hangi konularda daha empati kurmaya çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 337
+  },
+  {
+    "id": 338,
+    "text": "En son ne zaman gerçekten keyifli hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 338
+  },
+  {
+    "id": 339,
+    "text": "Hangi konularda daha dengeli olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 339
+  },
+  {
+    "id": 340,
+    "text": "Bugün hangi deneyimler size yeni bakış açıları kazandırdı?",
+    "category": "personal_growth",
+    "dayOfYear": 340
+  },
+  {
+    "id": 341,
+    "text": "En çok hangi anılarınız size huzur veriyor?",
+    "category": "memories",
+    "dayOfYear": 341
+  },
+  {
+    "id": 342,
+    "text": "Gelecek için hangi planlarınız sizi heyecanlandırıyor?",
+    "category": "future",
+    "dayOfYear": 342
+  },
+  {
+    "id": 343,
+    "text": "Bugün kendinize hangi konularda daha destekleyici davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 343
+  },
+  {
+    "id": 344,
+    "text": "En son ne zaman gerçekten coşkulu hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 344
+  },
+  {
+    "id": 345,
+    "text": "Hangi konularda daha yaratıcı olmaya çalışıyorsunuz?",
+    "category": "creativity",
+    "dayOfYear": 345
+  },
+  {
+    "id": 346,
+    "text": "Bugün hangi küçük ilerlemeler sizi mutlu etti?",
+    "category": "gratitude",
+    "dayOfYear": 346
+  },
+  {
+    "id": 347,
+    "text": "En çok hangi değerleriniz hayatınızı yönlendiriyor?",
+    "category": "self_reflection",
+    "dayOfYear": 347
+  },
+  {
+    "id": 348,
+    "text": "Kendinizi en özgür hangi aktivitelerde hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 348
+  },
+  {
+    "id": 349,
+    "text": "Bugün hangi konularda daha sabırlı olmaya çalıştınız?",
+    "category": "emotions",
+    "dayOfYear": 349
+  },
+  {
+    "id": 350,
+    "text": "En son ne zaman gerçekten ilham almış hissettiniz?",
+    "category": "creativity",
+    "dayOfYear": 350
+  },
+  {
+    "id": 351,
+    "text": "Hangi konularda daha dikkatli olmaya çalışıyorsunuz?",
+    "category": "personal_growth",
+    "dayOfYear": 351
+  },
+  {
+    "id": 352,
+    "text": "Bugün hangi deneyimler size neşe verdi?",
+    "category": "gratitude",
+    "dayOfYear": 352
+  },
+  {
+    "id": 353,
+    "text": "En çok hangi anılarınız size motivasyon veriyor?",
+    "category": "memories",
+    "dayOfYear": 353
+  },
+  {
+    "id": 354,
+    "text": "Gelecekte hangi konularda daha yetenekli olmak istiyorsunuz?",
+    "category": "goals",
+    "dayOfYear": 354
+  },
+  {
+    "id": 355,
+    "text": "Bugün kendinize hangi konularda daha nazik davranabilirsiniz?",
+    "category": "self_reflection",
+    "dayOfYear": 355
+  },
+  {
+    "id": 356,
+    "text": "En son ne zaman gerçekten tatmin olmuş hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 356
+  },
+  {
+    "id": 357,
+    "text": "Hangi konularda daha spontane olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 357
+  },
+  {
+    "id": 358,
+    "text": "Bugün hangi fırsatları değerlendirmeye çalıştınız?",
+    "category": "goals",
+    "dayOfYear": 358
+  },
+  {
+    "id": 359,
+    "text": "En çok hangi özelliklerinizi kullanmaktan hoşlanıyorsunuz?",
+    "category": "self_reflection",
+    "dayOfYear": 359
+  },
+  {
+    "id": 360,
+    "text": "Kendinizi en rahat hangi ortamlarda hissediyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 360
+  },
+  {
+    "id": 361,
+    "text": "Bugün hangi konularda daha iyi dinlemeye çalıştınız?",
+    "category": "relationships",
+    "dayOfYear": 361
+  },
+  {
+    "id": 362,
+    "text": "En son ne zaman gerçekten şaşırmış hissettiniz?",
+    "category": "emotions",
+    "dayOfYear": 362
+  },
+  {
+    "id": 363,
+    "text": "Hangi konularda daha organize olmaya çalışıyorsunuz?",
+    "category": "lifestyle",
+    "dayOfYear": 363
+  },
+  {
+    "id": 364,
+    "text": "Bu yılın en önemli öğrendiğiniz şey nedir?",
+    "category": "self_reflection",
+    "dayOfYear": 364
+  },
+  {
+    "id": 365,
+    "text": "Yeni yıl için kendinize nasıl bir hediye vermek istiyorsunuz?",
+    "category": "future",
+    "dayOfYear": 365
+  }
+]
