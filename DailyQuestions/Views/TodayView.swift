@@ -78,6 +78,7 @@ struct TodayViewExact: View {
                         
                         TextEditor(text: $viewModel.answerText)
                             .font(.system(size: 16))
+                            .frame(height: 30)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 12)
                             .background(Color.clear)

@@ -76,6 +76,12 @@ class MainViewModel: ObservableObject {
         guard let question = todayQuestion else { return }
         guard answerText.isNotEmpty else { return }
         
+        // Günde tek kayıt kontrolü - Bugün için zaten cevap var mı?
+        if dataManager.getAnswer(for: question.id, date: Date()) != nil {
+            // Bugün için zaten cevap verilmiş
+            return
+        }
+        
         isLoading = true
         
         let answer = Answer(
@@ -187,7 +193,9 @@ class MainViewModel: ObservableObject {
     
     // MARK: - Computed Properties
     var canSave: Bool {
-        answerText.isNotEmpty && !isLoading
+        guard let question = todayQuestion else { return false }
+        let alreadyAnsweredToday = dataManager.getAnswer(for: question.id, date: Date()) != nil
+        return answerText.isNotEmpty && !isLoading && !alreadyAnsweredToday
     }
     
     var hasAnsweredToday: Bool {
