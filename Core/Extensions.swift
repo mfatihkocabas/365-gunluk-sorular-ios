@@ -64,9 +64,18 @@ extension Color {
     static let secondaryBackground = Color("SecondaryBackground")
     static let primaryText = Color("PrimaryText")
     static let secondaryText = Color("SecondaryText")
-    static let accent = Color("AccentColor")
+    static let accentColorCustom = Color("AccentColor")
     static let favoriteRed = Color.red
     static let successGreen = Color.green
+}
+
+// MARK: - Array Extensions
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
+    }
 }
 
 // MARK: - View Extensions
@@ -82,19 +91,19 @@ extension View {
         self
             .foregroundColor(.white)
             .padding()
-            .background(Color.accent)
+            .background(Color.accentColorCustom)
             .cornerRadius(10)
     }
     
     func secondaryButtonStyle() -> some View {
         self
-            .foregroundColor(.accent)
+            .foregroundColor(.accentColorCustom)
             .padding()
             .background(Color.secondaryBackground)
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.accent, lineWidth: 1)
+                    .stroke(Color.accentColorCustom, lineWidth: 1)
             )
     }
 }

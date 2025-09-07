@@ -131,7 +131,7 @@ struct AnswerSection: View {
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.secondaryBackground)
-                    .frame(minHeight: 120)
+                    .frame(minHeight: 30)
                 
                 if viewModel.answerText.isEmpty {
                     Text("Düşüncelerini buraya yaz...")

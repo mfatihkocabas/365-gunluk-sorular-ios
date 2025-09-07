@@ -1,162 +1,55 @@
 import Foundation
-import CoreData
 
 class DataManager: ObservableObject {
     static let shared = DataManager()
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "DataModel")
-        container.loadPersistentStores { _, error in
-            if let error = error {
-                print("Core Data error: \(error)")
-            }
-        }
-        return container
-    }()
-    
-    private var context: NSManagedObjectContext {
-        return persistentContainer.viewContext
-    }
+    private let userDefaults = UserDefaults.standard
+    private let answersKey = "user_answers"
+    private let answeredDaysKey = "answered_days"
+    private let favoritesKey = "favorite_answers"
     
     private init() {}
     
-    func save() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("Save error: \(error)")
-            }
-        }
-    }
-    
     // MARK: - Answer Operations
     func saveAnswer(_ answer: Answer) {
+        var allAnswers = getAllAnswers()
+        
         // Aynı gün için zaten cevap var mı kontrol et
-        if let existingResponse = getUserResponse(for: answer.questionId, date: answer.date) {
-            existingResponse.text = answer.text
-            existingResponse.isFavorite = answer.isFavorite
-            existingResponse.emoji = answer.emoji
-            existingResponse.mood = answer.mood?.rawValue
-            existingResponse.updatedAt = Date()
+        if let existingIndex = allAnswers.firstIndex(where: {
+            Calendar.current.isDate($0.date, inSameDayAs: answer.date) && $0.questionId == answer.questionId
+        }) {
+            // Güncelle
+            allAnswers[existingIndex] = answer
         } else {
-            let userResponse = UserResponseEntity(context: context)
-            userResponse.id = answer.id
-            userResponse.questionId = Int32(answer.questionId)
-            userResponse.text = answer.text
-            userResponse.date = answer.date
-            userResponse.isFavorite = answer.isFavorite
-            userResponse.emoji = answer.emoji
-            userResponse.mood = answer.mood?.rawValue
-            userResponse.createdAt = Date()
-            userResponse.updatedAt = Date()
+            // Yeni ekle
+            allAnswers.append(answer)
         }
         
-        save()
+        saveAllAnswers(allAnswers)
     }
     
     func getAnswer(for questionId: Int, date: Date = Date()) -> Answer? {
-        guard let userResponse = getUserResponse(for: questionId, date: date) else {
-            return nil
+        let allAnswers = getAllAnswers()
+        return allAnswers.first { answer in
+            Calendar.current.isDate(answer.date, inSameDayAs: date) && answer.questionId == questionId
         }
-        
-        let mood = userResponse.mood != nil ? Answer.MoodType(rawValue: userResponse.mood!) : nil
-        
-        return Answer(
-            questionId: Int(userResponse.questionId),
-            text: userResponse.text ?? "",
-            isFavorite: userResponse.isFavorite,
-            emoji: userResponse.emoji,
-            mood: mood
-        )
     }
     
     func getAnswersForYear(_ year: Int) -> [Answer] {
-        let request: NSFetchRequest<UserResponseEntity> = UserResponseEntity.fetchRequest()
-        
-        let startDate = Date.startOfYear(year)
-        let endDate = Calendar.current.date(byAdding: .year, value: 1, to: startDate) ?? Date()
-        
-        request.predicate = NSPredicate(format: "date >= %@ AND date < %@", startDate as NSDate, endDate as NSDate)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \UserResponseEntity.date, ascending: true)]
-        
-        do {
-            let entities = try context.fetch(request)
-            return entities.compactMap { entity in
-                let mood = entity.mood != nil ? Answer.MoodType(rawValue: entity.mood!) : nil
-                return Answer(
-                    questionId: Int(entity.questionId),
-                    text: entity.text ?? "",
-                    isFavorite: entity.isFavorite,
-                    emoji: entity.emoji,
-                    mood: mood
-                )
-            }
-        } catch {
-            print("Fetch error: \(error)")
-            return []
-        }
+        let allAnswers = getAllAnswers()
+        return allAnswers.filter { answer in
+            Calendar.current.component(.year, from: answer.date) == year
+        }.sorted { $0.date < $1.date }
     }
     
     func getFavoriteAnswers() -> [Answer] {
-        let request: NSFetchRequest<UserResponseEntity> = UserResponseEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "isFavorite == true")
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \UserResponseEntity.date, ascending: false)]
-        
-        do {
-            let entities = try context.fetch(request)
-            return entities.compactMap { entity in
-                let mood = entity.mood != nil ? Answer.MoodType(rawValue: entity.mood!) : nil
-                return Answer(
-                    questionId: Int(entity.questionId),
-                    text: entity.text ?? "",
-                    isFavorite: entity.isFavorite,
-                    emoji: entity.emoji,
-                    mood: mood
-                )
-            }
-        } catch {
-            print("Fetch error: \(error)")
-            return []
-        }
-    }
-    
-    private func getUserResponse(for questionId: Int, date: Date) -> UserResponseEntity? {
-        let request: NSFetchRequest<UserResponseEntity> = UserResponseEntity.fetchRequest()
-        
-        let dayOfYear = Calendar.current.dayOfYear(for: date) ?? 1
-        let year = Calendar.current.component(.year, from: date)
-        
-        request.predicate = NSPredicate(format: "questionId == %d", questionId)
-        
-        do {
-            let entities = try context.fetch(request)
-            return entities.first { entity in
-                let entityDayOfYear = Calendar.current.dayOfYear(for: entity.date ?? Date()) ?? 0
-                let entityYear = Calendar.current.component(.year, from: entity.date ?? Date())
-                return entityDayOfYear == dayOfYear && entityYear == year
-            }
-        } catch {
-            print("Fetch error: \(error)")
-            return nil
-        }
+        let allAnswers = getAllAnswers()
+        return allAnswers.filter { $0.isFavorite }.sorted { $0.date > $1.date }
     }
     
     // MARK: - Statistics
     func getAnswerCount(for year: Int) -> Int {
-        let request: NSFetchRequest<UserResponseEntity> = UserResponseEntity.fetchRequest()
-        
-        let startDate = Date.startOfYear(year)
-        let endDate = Calendar.current.date(byAdding: .year, value: 1, to: startDate) ?? Date()
-        
-        request.predicate = NSPredicate(format: "date >= %@ AND date < %@", startDate as NSDate, endDate as NSDate)
-        
-        do {
-            return try context.count(for: request)
-        } catch {
-            print("Count error: \(error)")
-            return 0
-        }
+        return getAnswersForYear(year).count
     }
     
     func getMonthlyAnswerCounts(for year: Int) -> [Int: Int] {
@@ -174,24 +67,57 @@ class DataManager: ObservableObject {
         
         return monthlyCounts
     }
-}
-
-// MARK: - UserResponseEntity
-@objc(UserResponseEntity)
-class UserResponseEntity: NSManagedObject {
-    @NSManaged var id: UUID
-    @NSManaged var questionId: Int32
-    @NSManaged var text: String?
-    @NSManaged var date: Date?
-    @NSManaged var isFavorite: Bool
-    @NSManaged var emoji: String?
-    @NSManaged var mood: String?
-    @NSManaged var createdAt: Date?
-    @NSManaged var updatedAt: Date?
-}
-
-extension UserResponseEntity {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<UserResponseEntity> {
-        return NSFetchRequest<UserResponseEntity>(entityName: "UserResponseEntity")
+    
+    // MARK: - Private Methods
+    private func getAllAnswers() -> [Answer] {
+        guard let data = userDefaults.data(forKey: answersKey),
+              let answers = try? JSONDecoder().decode([Answer].self, from: data) else {
+            return []
+        }
+        return answers
+    }
+    
+    private func saveAllAnswers(_ answers: [Answer]) {
+        if let data = try? JSONEncoder().encode(answers) {
+            userDefaults.set(data, forKey: answersKey)
+        }
+    }
+    
+    // MARK: - Calendar Management
+    func markDayAsAnswered(_ date: Date) {
+        var answeredDays = getAnsweredDays()
+        answeredDays.insert(date)
+        saveAnsweredDays(answeredDays)
+    }
+    
+    func getAnsweredDays() -> Set<Date> {
+        guard let data = userDefaults.data(forKey: answeredDaysKey) else {
+            return []
+        }
+        let dateStrings = (try? JSONDecoder().decode([String].self, from: data)) ?? []
+        let dateFormatter = ISO8601DateFormatter()
+        return Set(dateStrings.compactMap { dateFormatter.date(from: $0) })
+    }
+    
+    private func saveAnsweredDays(_ days: Set<Date>) {
+        let dateFormatter = ISO8601DateFormatter()
+        let dateStrings = days.map { dateFormatter.string(from: $0) }
+        if let data = try? JSONEncoder().encode(dateStrings) {
+            userDefaults.set(data, forKey: answeredDaysKey)
+        }
+    }
+    
+    // MARK: - Enhanced Favorites Management
+    func addToFavorites(_ answer: Answer) {
+        // Bu fonksiyon artık answer'ın isFavorite flag'ini kullanarak çalışıyor
+        // Sadece favoriler listesini güncelliyoruz
+        let favorites = getFavoriteAnswers()
+        print("Favorilere eklendi: \(answer.text.prefix(50))")
+    }
+    
+    func removeFromFavorites(_ answer: Answer) {
+        // Bu fonksiyon artık answer'ın isFavorite flag'ini kullanarak çalışıyor
+        let favorites = getFavoriteAnswers()
+        print("Favorilerden kaldırıldı: \(answer.text.prefix(50))")
     }
 }

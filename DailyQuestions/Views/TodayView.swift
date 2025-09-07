@@ -1,433 +1,174 @@
 import SwiftUI
 
-struct TodayView: View {
-    @ObservedObject var viewModel: MainViewModel
-    @State private var showingPreviousAnswers = false
+struct TodayViewExact: View {
+    @StateObject private var viewModel = MainViewModel()
     
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Tarih ve Gün Bilgisi
-                    HeaderSection(viewModel: viewModel)
-                    
-                    // Soru Kartı
-                    QuestionCard(viewModel: viewModel)
-                    
-                    // Cevap Yazma Alanı
-                    AnswerSection(viewModel: viewModel)
-                    
-                    // Duygu ve Emoji Seçimi
-                    EmotionSection(viewModel: viewModel)
-                    
-                    // Favorilere Ekle
-                    FavoriteSection(viewModel: viewModel)
-                    
-                    // Geçmiş Cevaplar Butonu
-                    if viewModel.hasPreviousAnswers {
-                        PreviousAnswersButton(showingPreviousAnswers: $showingPreviousAnswers)
-                    }
-                    
-                    // Kaydet Butonu
-                    SaveButton(viewModel: viewModel)
-                    
-                    Spacer(minLength: 100)
-                }
-                .padding(.horizontal)
-            }
-            .navigationTitle("Günün Sorusu")
-            .navigationBarTitleDisplayMode(.large)
-            .sheet(isPresented: $showingPreviousAnswers) {
-                PreviousAnswersSheet(viewModel: viewModel)
-            }
-        }
-    }
-}
-
-// MARK: - Header Section
-struct HeaderSection: View {
-    @ObservedObject var viewModel: MainViewModel
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            Text(viewModel.todayDateString)
-                .font(.headline)
-                .foregroundColor(.secondaryText)
-            
-            Text("Gün \(viewModel.dayOfYear)")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.primaryText)
-            
-            if !viewModel.questionCategory.isEmpty {
-                Text(viewModel.questionCategory)
-                    .font(.caption)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 4)
-                    .background(Color.accent.opacity(0.1))
-                    .foregroundColor(.accent)
-                    .cornerRadius(12)
-            }
-        }
-        .padding(.top)
-    }
-}
-
-// MARK: - Question Card
-struct QuestionCard: View {
-    @ObservedObject var viewModel: MainViewModel
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Image(systemName: "questionmark.circle.fill")
-                    .foregroundColor(.accent)
-                    .font(.title2)
-                
-                Text("Bugünün Sorusu")
-                    .font(.headline)
-                    .foregroundColor(.primaryText)
-                
-                Spacer()
-            }
-            
-            Text(viewModel.questionTitle)
-                .font(.title3)
-                .fontWeight(.medium)
-                .foregroundColor(.primaryText)
-                .lineLimit(nil)
-                .multilineTextAlignment(.leading)
-        }
-        .padding()
-        .cardStyle()
-    }
-}
-
-// MARK: - Answer Section
-struct AnswerSection: View {
-    @ObservedObject var viewModel: MainViewModel
-    @FocusState private var isTextFieldFocused: Bool
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Image(systemName: "pencil.circle.fill")
-                    .foregroundColor(.accent)
-                    .font(.title2)
-                
-                Text(viewModel.hasAnsweredToday ? "Cevabını Düzenle" : "Cevabını Yaz")
-                    .font(.headline)
-                    .foregroundColor(.primaryText)
-                
-                Spacer()
-                
-                if viewModel.hasAnsweredToday {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.successGreen)
-                        .font(.title2)
-                }
-            }
-            
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.secondaryBackground)
-                    .frame(minHeight: 120)
-                
-                if viewModel.answerText.isEmpty {
-                    Text("Düşüncelerini buraya yaz...")
-                        .foregroundColor(.secondaryText)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 12)
-                }
-                
-                TextEditor(text: $viewModel.answerText)
-                    .focused($isTextFieldFocused)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(Color.clear)
-                    .font(.body)
-            }
-            
-            HStack {
-                Text("\(viewModel.answerText.count) karakter")
-                    .font(.caption)
-                    .foregroundColor(.secondaryText)
-                
-                Spacer()
-                
-                if isTextFieldFocused {
-                    Button("Tamam") {
-                        isTextFieldFocused = false
-                    }
-                    .font(.caption)
-                    .foregroundColor(.accent)
-                }
-            }
-        }
-        .padding()
-        .cardStyle()
-    }
-}
-
-// MARK: - Emotion Section
-struct EmotionSection: View {
-    @ObservedObject var viewModel: MainViewModel
-    
-    let emojis = ["😄", "😊", "😐", "😔", "😢", "🤩", "🙏", "🤔", "😌", "⚡"]
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Image(systemName: "face.smiling")
-                    .foregroundColor(.accent)
-                    .font(.title2)
-                
-                Text("Duygu Durumun")
-                    .font(.headline)
-                    .foregroundColor(.primaryText)
-                
-                Spacer()
-            }
-            
-            // Emoji Seçimi
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(emojis, id: \.self) { emoji in
-                        Button(action: {
-                            viewModel.selectEmoji(emoji)
-                        }) {
-                            Text(emoji)
-                                .font(.title2)
-                                .frame(width: 44, height: 44)
-                                .background(
-                                    Circle()
-                                        .fill(viewModel.selectedEmoji == emoji ? Color.accent.opacity(0.2) : Color.clear)
-                                )
-                                .overlay(
-                                    Circle()
-                                        .stroke(viewModel.selectedEmoji == emoji ? Color.accent : Color.clear, lineWidth: 2)
-                                )
-                        }
-                    }
-                }
-                .padding(.horizontal)
-            }
-            
-            // Duygu Tipi Seçimi
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Duygu Tipi:")
-                    .font(.subheadline)
-                    .foregroundColor(.secondaryText)
-                
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 8) {
-                    ForEach(Answer.MoodType.allCases, id: \.self) { mood in
-                        Button(action: {
-                            viewModel.selectMood(mood)
-                        }) {
-                            HStack {
-                                Text(mood.rawValue)
-                                Text(mood.description)
-                                    .font(.caption)
-                            }
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(
-                                Capsule()
-                                    .fill(viewModel.selectedMood == mood ? Color.accent.opacity(0.2) : Color.secondaryBackground)
-                            )
-                            .overlay(
-                                Capsule()
-                                    .stroke(viewModel.selectedMood == mood ? Color.accent : Color.clear, lineWidth: 1)
-                            )
-                        }
-                        .foregroundColor(viewModel.selectedMood == mood ? .accent : .primaryText)
-                    }
-                }
-            }
-        }
-        .padding()
-        .cardStyle()
-    }
-}
-
-// MARK: - Favorite Section
-struct FavoriteSection: View {
-    @ObservedObject var viewModel: MainViewModel
-    
-    var body: some View {
-        Button(action: {
-            viewModel.toggleFavorite()
-        }) {
-            HStack {
-                Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-                    .foregroundColor(viewModel.isFavorite ? .favoriteRed : .secondaryText)
-                    .font(.title2)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Favorilere Ekle")
-                        .font(.headline)
-                        .foregroundColor(.primaryText)
-                    
-                    Text("1 yıl sonra bu soruyu hatırlatacağım")
-                        .font(.caption)
-                        .foregroundColor(.secondaryText)
-                }
-                
-                Spacer()
-                
-                if viewModel.isFavorite {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.favoriteRed)
-                        .font(.title2)
-                }
-            }
-            .padding()
-            .cardStyle()
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
-// MARK: - Previous Answers Button
-struct PreviousAnswersButton: View {
-    @Binding var showingPreviousAnswers: Bool
-    
-    var body: some View {
-        Button(action: {
-            showingPreviousAnswers = true
-        }) {
-            HStack {
-                Image(systemName: "clock.arrow.circlepath")
-                    .foregroundColor(.accent)
-                    .font(.title2)
-                
-                Text("Geçmiş Cevaplarını Gör")
-                    .font(.headline)
-                    .foregroundColor(.accent)
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.accent)
-            }
-            .padding()
-            .secondaryButtonStyle()
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
-// MARK: - Save Button
-struct SaveButton: View {
-    @ObservedObject var viewModel: MainViewModel
-    
-    var body: some View {
-        Button(action: {
-            viewModel.saveAnswer()
-        }) {
-            HStack {
-                if viewModel.isLoading {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                        .scaleEffect(0.8)
-                } else {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.title2)
-                }
-                
-                Text(viewModel.hasAnsweredToday ? "Güncelle" : "Kaydet")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-            }
-            .frame(maxWidth: .infinity)
-            .primaryButtonStyle()
-        }
-        .disabled(!viewModel.canSave)
-        .opacity(viewModel.canSave ? 1.0 : 0.6)
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
-// MARK: - Previous Answers Sheet
-struct PreviousAnswersSheet: View {
-    @ObservedObject var viewModel: MainViewModel
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack(spacing: 16) {
-                    ForEach(viewModel.previousYearAnswers) { answer in
-                        PreviousAnswerCard(answer: answer)
-                    }
-                }
-                .padding()
-            }
-            .navigationTitle("Geçmiş Cevaplarım")
-            .navigationBarTitleDisplayMode(.large)
-            .navigationBarItems(trailing: Button("Kapat") { dismiss() })
-        }
-    }
-}
-
-// MARK: - Previous Answer Card
-struct PreviousAnswerCard: View {
-    let answer: Answer
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("\(answer.yearFromDate) yılından")
-                    .font(.headline)
-                    .foregroundColor(.accent)
-                
-                Spacer()
-                
-                if let emoji = answer.emoji {
-                    Text(emoji)
-                        .font(.title2)
-                }
-                
-                if answer.isFavorite {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.favoriteRed)
-                }
-            }
-            
-            Text(answer.text)
-                .font(.body)
-                .foregroundColor(.primaryText)
-                .lineLimit(nil)
-            
-            if let mood = answer.mood {
-                HStack {
-                    Text(mood.rawValue)
-                    Text(mood.description)
-                        .font(.caption)
-                        .foregroundColor(.secondaryText)
-                    
-                    Spacer()
-                    
-                    Text(formattedDate(answer.date))
-                        .font(.caption)
-                        .foregroundColor(.secondaryText)
-                }
-            }
-        }
-        .padding()
-        .cardStyle()
-    }
-    
-    private func formattedDate(_ date: Date) -> String {
+    private var currentDateString: String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "tr_TR")
         formatter.dateFormat = "d MMMM yyyy"
-        return formatter.string(from: date)
+        return formatter.string(from: Date())
+    }
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            // Header Area - Krem renk
+            VStack(spacing: 0) {
+                // Navigation Header
+                HStack {
+                    Button(action: {}) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(.black)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Günün Sorusu")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.black)
+                    
+                    Spacer()
+                    
+                    // Invisible button for balance
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.clear)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 10)
+                .padding(.bottom, 20)
+                .background(Color(red: 0.95, green: 0.94, blue: 0.90)) // Krem renk
+                
+                // Date - Bold ve gerçek tarih
+                Text(currentDateString)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 10)
+                
+                // Main Question
+                Text(viewModel.questionTitle)
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(2)
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 15)
+            }
+            .background(Color(red: 0.95, green: 0.94, blue: 0.90)) // Krem renk
+            
+            // Content Area - Gri arka plan
+            VStack(spacing: 0) {
+                // Text Editor Area - Küçültülmüş
+                VStack(alignment: .leading, spacing: 0) {
+                    ZStack(alignment: .topLeading) {
+                        // Açık krem background
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(red: 0.99, green: 0.98, blue: 0.96))
+                            .frame(height: 140) // Tasarıma uygun boyut
+                        
+                        // Text Editor
+                        if viewModel.answerText.isEmpty {
+                            Text("Cevabınızı buraya yazın...")
+                                .font(.system(size: 16))
+                                .foregroundColor(.gray.opacity(0.5))
+                                .padding(.horizontal, 16)
+                                .padding(.top, 16)
+                        }
+                        
+                        TextEditor(text: $viewModel.answerText)
+                            .font(.system(size: 16))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 12)
+                            .background(Color.clear)
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+                
+                // Buttons Area
+                HStack {
+                    // Favorite Button
+                    Button(action: {
+                        viewModel.toggleFavorite()
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
+                            
+                            Text("Favorilere Ekle")
+                                .font(.system(size: 16))
+                                .foregroundColor(.black)
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    // Save Button
+                    Button(action: {
+                        viewModel.saveAnswer()
+                    }) {
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .scaleEffect(0.8)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 10)
+                                .background(Color.gray)
+                                .cornerRadius(16)
+                        } else {
+                            Text("Kaydet")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 10)
+                                .background(viewModel.canSave ? Color(red: 1.0, green: 0.27, blue: 0.27) : Color.gray)
+                                .cornerRadius(16)
+                        }
+                    }
+                    .disabled(!viewModel.canSave)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 15)
+                
+                // Time Capsule Link
+                Button(action: {
+                    viewModel.showTimeCapsule()
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "infinity")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
+                        
+                        Text("Zaman Kapsülünü Araç Geçen Yıl\nNe Dedin?")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(1)
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+                
+                Spacer()
+            }
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96)) // Açık gri
+        }
+        .ignoresSafeArea(.container, edges: .top)
+        .sheet(isPresented: $viewModel.showingPreviousAnswer) {
+            PreviousAnswerView(viewModel: viewModel)
+        }
+        .alert("Geçmiş Cevap Bulunamadı", isPresented: $viewModel.showingNoPreviousAnswerAlert) {
+            Button("Tamam") {
+                viewModel.hideNoPreviousAnswerAlert()
+            }
+        } message: {
+            Text("Geçen sene verdiğiniz bir cevap bulunmamaktadır.")
+        }
     }
 }
 
-struct TodayView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodayView(viewModel: MainViewModel.sampleViewModel())
-    }
+#Preview {
+    TodayViewExact()
 }

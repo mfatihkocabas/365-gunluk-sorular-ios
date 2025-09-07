@@ -1,270 +1,416 @@
 import SwiftUI
+import Foundation
 
 struct MainView: View {
     var body: some View {
         TabView {
-            TodayViewDesigned()
+            TodayViewExact()
                 .tabItem {
-                    Image(systemName: "doc.text.fill")
+                    Image(systemName: "circle.fill")
                     Text("Günün Sorusu")
                 }
             
-            Text("Favoriler")
+            FavoritesViewExact()
                 .tabItem {
                     Image(systemName: "heart.fill")
                     Text("Favoriler")
                 }
             
-            Text("Geçmiş")
+            CalendarViewExact()
                 .tabItem {
-                    Image(systemName: "clock.arrow.circlepath")
+                    Image(systemName: "calendar")
                     Text("Geçmiş")
                 }
             
-            Text("Profil")
+            SettingsViewExact()
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profil")
                 }
         }
-        .accentColor(Color(red: 0.9, green: 0.3, blue: 0.3))
+        .accentColor(Color(red: 1.0, green: 0.27, blue: 0.27))
     }
 }
 
-struct TodayViewDesigned: View {
-    @State private var answerText = ""
-    @State private var isFavorite = false
+// MARK: - Calendar View
+struct CalendarViewExact: View {
+    @StateObject private var viewModel = MainViewModel()
+    @State private var currentDate = Date()
+    private let weekDays = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"]
+    
+    private var currentMonth: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "tr_TR")
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: currentDate)
+    }
+    
+    private var calendarDays: [Int] {
+        let calendar = Calendar.current
+        let range = calendar.range(of: .day, in: .month, for: currentDate)!
+        return Array(range)
+    }
+    
+    private var firstWeekday: Int {
+        let calendar = Calendar.current
+        let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate))!
+        return calendar.component(.weekday, from: firstDayOfMonth) - 1
+    }
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 0) {
-                // Header
-                HStack {
-                    Text("Günün Sorusu")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+        VStack(spacing: 0) {
+            // Header
+            HStack {
+                Button(action: {}) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.black)
-                    
-                    Spacer()
-                    
-                    Button(action: {}) {
-                        Image(systemName: "gearshape.fill")
-                            .font(.title2)
-                            .foregroundColor(.gray)
+                }
+                
+                Spacer()
+                
+                Text("Geçmiş")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.black)
+                
+                Spacer()
+                
+                // Invisible button for balance
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.clear)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
+            .padding(.bottom, 20)
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+            
+            // Month Header
+            HStack {
+                Button(action: {
+                    goToPreviousMonth()
+                }) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16))
+                        .foregroundColor(.black)
+                }
+                
+                Spacer()
+                
+                Text(currentMonth)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.black)
+                
+                Spacer()
+                
+                Button(action: {
+                    goToNextMonth()
+                }) {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 16))
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+            
+            // Week Days Header
+            HStack {
+                ForEach(weekDays, id: \.self) { day in
+                    Text(day)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 15)
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+            
+            // Calendar Grid
+            VStack(spacing: 8) {
+                let totalDays = calendarDays.count + firstWeekday
+                let totalWeeks = (totalDays + 6) / 7
+                
+                ForEach(0..<totalWeeks, id: \.self) { weekIndex in
+                    HStack(spacing: 8) {
+                        ForEach(0..<7, id: \.self) { dayIndex in
+                            let dayNumber = (weekIndex * 7) + dayIndex - firstWeekday + 1
+                            
+                            if dayNumber > 0 && dayNumber <= calendarDays.count {
+                                let dayDate = getDateForDay(dayNumber)
+                                let isAnswered = viewModel.isDayAnswered(dayDate)
+                                let isToday = Calendar.current.isDate(dayDate, inSameDayAs: Date())
+                                
+                                Button(action: {
+                                    // Day tapped action
+                                }) {
+                                    Text("\(dayNumber)")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(isToday ? .white : .black)
+                                        .frame(width: 40, height: 40)
+                                        .background(
+                                            isToday ? Color(red: 1.0, green: 0.27, blue: 0.27) :
+                                            isAnswered ? Color.green.opacity(0.3) :
+                                            Color(red: 0.99, green: 0.98, blue: 0.96)
+                                        )
+                                        .cornerRadius(8)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(
+                                                    isAnswered ? Color.green : Color.gray.opacity(0.2), 
+                                                    lineWidth: isAnswered ? 2 : 1
+                                                )
+                                        )
+                                }
+                                .disabled(isAnswered) // Disable answered days
+                            } else {
+                                Color.clear
+                                    .frame(width: 40, height: 40)
+                            }
+                        }
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 40)
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+            
+            // Lock Section
+            VStack(spacing: 12) {
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 24))
+                    .foregroundColor(.gray)
                 
-                ScrollView {
-                    VStack(spacing: 0) {
-                        // Date
-                        Text("24 Haziran 2024")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                            .padding(.top, 20)
-                        
-                        // Main Question
-                        Text("Hayatınızda şu anda en\nönemli olan şey nedir?")
-                            .font(.title2)
-                            .fontWeight(.bold)
+                Text("Cevap Kilitli")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.black)
+                
+                Text("Bu tarihteki cevabını görmek için 1 yıl beklemelisin.")
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+            }
+            .padding(.vertical, 30)
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+            
+            Spacer()
+        }
+        .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+        .navigationBarHidden(true)
+        .onAppear {
+            viewModel.loadAnsweredDays()
+        }
+    }
+    
+    // MARK: - Helper Functions
+    private func goToPreviousMonth() {
+        let calendar = Calendar.current
+        if let newDate = calendar.date(byAdding: .month, value: -1, to: currentDate) {
+            currentDate = newDate
+        }
+    }
+    
+    private func goToNextMonth() {
+        let calendar = Calendar.current
+        if let newDate = calendar.date(byAdding: .month, value: 1, to: currentDate) {
+            currentDate = newDate
+        }
+    }
+    
+    private func getDateForDay(_ day: Int) -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: currentDate)
+        var dateComponents = components
+        dateComponents.day = day
+        return calendar.date(from: dateComponents) ?? Date()
+    }
+}
+
+// MARK: - Settings View
+struct SettingsViewExact: View {
+    @State private var isNotificationsEnabled = true
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            // Header
+            HStack {
+                Button(action: {}) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.black)
+                }
+                
+                Spacer()
+                
+                Text("Ayarlar")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.black)
+                
+                Spacer()
+                
+                // Invisible button for balance
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.clear)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
+            .padding(.bottom, 20)
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+            
+            // Settings Content
+            ScrollView {
+                VStack(spacing: 0) {
+                    // Hesap Section
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Hesap")
+                            .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                            .lineSpacing(4)
-                            .padding(.horizontal, 30)
-                            .padding(.top, 15)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 15)
                         
-                        // Answer Text Area
-                        VStack(alignment: .leading, spacing: 0) {
-                            if answerText.isEmpty {
-                                Text("Cevabınızı buraya yazın...")
-                                    .font(.body)
-                                    .foregroundColor(.gray.opacity(0.6))
-                                    .padding(.horizontal, 16)
-                                    .padding(.top, 16)
+                        // Profile Item
+                        Button(action: {}) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "person.circle.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.gray)
+                                
+                                Text("Profil")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.black)
                                 
                                 Spacer()
-                            }
-                            
-                            TextEditor(text: $answerText)
-                                .font(.body)
-                                .scrollContentBackground(.hidden)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, answerText.isEmpty ? 0 : 16)
-                        }
-                        .frame(height: 200)
-                        .background(Color.white.opacity(0.8))
-                        .cornerRadius(15)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-                        )
-                        .padding(.horizontal, 20)
-                        .padding(.top, 30)
-                        
-                        // Bottom Action Area
-                        HStack {
-                            // Favorite Button
-                            Button(action: {
-                                isFavorite.toggle()
-                            }) {
-                                HStack(spacing: 8) {
-                                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                                        .font(.title3)
-                                        .foregroundColor(Color(red: 0.9, green: 0.3, blue: 0.3))
-                                    
-                                    Text("Favorilere Ekle")
-                                        .font(.body)
-                                        .foregroundColor(.black)
-                                }
-                            }
-                            
-                            Spacer()
-                            
-                            // Save Button
-                            Button(action: {
-                                print("Cevap kaydedildi: \(answerText)")
-                            }) {
-                                Text("Kaydet")
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 30)
-                                    .padding(.vertical, 12)
-                                    .background(Color(red: 0.9, green: 0.3, blue: 0.3))
-                                    .cornerRadius(20)
-                            }
-                        }
-                        .padding(.horizontal, 25)
-                        .padding(.top, 20)
-                        
-                        // Time Capsule Link
-                        Button(action: {}) {
-                            HStack(spacing: 8) {
-                                Image(systemName: "infinity")
-                                    .font(.body)
-                                    .foregroundColor(Color(red: 0.9, green: 0.3, blue: 0.3))
                                 
-                                Text("Zaman Kapsülünü Aratac Geçen Yıl\nNe Dedin?")
-                                    .font(.body)
-                                    .foregroundColor(Color(red: 0.9, green: 0.3, blue: 0.3))
-                                    .multilineTextAlignment(.leading)
-                                    .lineSpacing(2)
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
                             }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
                         }
-                        .padding(.horizontal, 25)
-                        .padding(.top, 25)
                         
-                        Spacer(minLength: 80)
+                        // Export Data Item
+                        Button(action: {}) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "square.and.arrow.up")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.gray)
+                                
+                                Text("Verileri Dışa Aktar")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.black)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+                        }
+                    }
+                    .padding(.bottom, 30)
+                    
+                    // Bildirimler Section
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Bildirimler")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 15)
+                        
+                        // Notifications Toggle
+                        HStack(spacing: 12) {
+                            Image(systemName: "bell.fill")
+                                .font(.system(size: 24))
+                                .foregroundColor(.gray)
+                            
+                            Text("Bildirimler")
+                                .font(.system(size: 16))
+                                .foregroundColor(.black)
+                            
+                            Spacer()
+                            
+                            Toggle("", isOn: $isNotificationsEnabled)
+                                .toggleStyle(SwitchToggleStyle(tint: Color(red: 1.0, green: 0.27, blue: 0.27)))
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 16)
+                        .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+                    }
+                    .padding(.bottom, 30)
+                    
+                    // Uygulama Section
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Uygulama")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 15)
+                        
+                        // Theme Item
+                        Button(action: {}) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "paintbrush.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.gray)
+                                
+                                Text("Tema")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.black)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+                        }
+                        
+                        // About Item
+                        Button(action: {}) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "info.circle.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.gray)
+                                
+                                Text("Hakkında")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.black)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 16)
+                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+                        }
                     }
                 }
+                .padding(.top, 20)
             }
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 0.98, green: 0.94, blue: 0.92),
-                        Color(red: 0.96, green: 0.92, blue: 0.90)
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+            
+            Spacer()
         }
+        .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+        .navigationBarHidden(true)
     }
 }
 
-struct TodayViewSimple: View {
-    @State private var answerText = ""
-    
-    var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Tarih
-                    Text("24 Haziran 2024, Pazartesi")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                    
-                    Text("Gün 176")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    // Soru Kartı
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack {
-                            Image(systemName: "questionmark.circle.fill")
-                                .foregroundColor(.blue)
-                                .font(.title2)
-                            
-                            Text("Bugünün Sorusu")
-                                .font(.headline)
-                            
-                            Spacer()
-                        }
-                        
-                        Text("Hayatınızda şu anda en önemli olan şey nedir?")
-                            .font(.title3)
-                            .fontWeight(.medium)
-                            .lineLimit(nil)
-                    }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
-                    
-                    // Cevap Alanı
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack {
-                            Image(systemName: "pencil.circle.fill")
-                                .foregroundColor(.blue)
-                                .font(.title2)
-                            
-                            Text("Cevabını Yaz")
-                                .font(.headline)
-                            
-                            Spacer()
-                        }
-                        
-                        TextEditor(text: $answerText)
-                            .frame(minHeight: 120)
-                            .padding(8)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
-                    }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
-                    
-                    // Kaydet Butonu
-                    Button(action: {
-                        print("Cevap kaydedildi: \(answerText)")
-                    }) {
-                        HStack {
-                            Image(systemName: "checkmark.circle.fill")
-                                .font(.title2)
-                            
-                            Text("Kaydet")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                    }
-                    
-                    Spacer(minLength: 100)
-                }
-                .padding(.horizontal)
-            }
-            .navigationTitle("Günün Sorusu")
-            .navigationBarTitleDisplayMode(.large)
-        }
-    }
-}
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
+#Preview {
+    MainView()
 }

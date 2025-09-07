@@ -11,6 +11,11 @@ class MainViewModel: ObservableObject {
     @Published var isFavorite: Bool = false
     @Published var isLoading: Bool = false
     @Published var showingComparison: Bool = false
+    @Published var showingPreviousAnswer: Bool = false
+    @Published var showingCalendar: Bool = false
+    @Published var showingFavorites: Bool = false
+    @Published var answeredDays: Set<Date> = []
+    @Published var showingNoPreviousAnswerAlert: Bool = false
     
     private let dataManager = DataManager.shared
     private let questionManager = QuestionDataManager.shared
@@ -20,6 +25,7 @@ class MainViewModel: ObservableObject {
         loadTodayQuestion()
         loadTodayAnswer()
         loadPreviousYearAnswers()
+        loadAnsweredDays()
     }
     
     // MARK: - Public Methods
@@ -82,12 +88,19 @@ class MainViewModel: ObservableObject {
         
         dataManager.saveAnswer(answer)
         
-        // Favori ise bildirim ayarla
+        // Takvime bugünü kaydet ve disable et
+        let today = Date()
+        answeredDays.insert(today)
+        dataManager.markDayAsAnswered(today)
+        
+        // Favori ise bildirim ayarla ve favori sayfasına ekle
         if isFavorite {
             notificationManager.scheduleOneYearReminder(for: answer)
+            dataManager.addToFavorites(answer)
         } else if let existingAnswer = todayAnswer, existingAnswer.isFavorite {
-            // Favori olmaktan çıkarıldıysa bildirimi iptal et
+            // Favori olmaktan çıkarıldıysa bildirimi iptal et ve favorilerden kaldır
             notificationManager.cancelReminder(for: existingAnswer)
+            dataManager.removeFromFavorites(existingAnswer)
         }
         
         todayAnswer = answer
@@ -122,6 +135,54 @@ class MainViewModel: ObservableObject {
     
     func hideComparison() {
         showingComparison = false
+    }
+    
+    // MARK: - Calendar Management
+    func loadAnsweredDays() {
+        answeredDays = dataManager.getAnsweredDays()
+    }
+    
+    func isDayAnswered(_ date: Date) -> Bool {
+        return answeredDays.contains { Calendar.current.isDate($0, inSameDayAs: date) }
+    }
+    
+    // MARK: - Navigation Functions
+    func showTimeCapsule() {
+        if hasPreviousAnswers {
+            showingPreviousAnswer = true
+        } else {
+            showingNoPreviousAnswerAlert = true
+        }
+    }
+    
+    func showCalendar() {
+        showingCalendar = true
+    }
+    
+    func hideCalendar() {
+        showingCalendar = false
+    }
+    
+    func showFavorites() {
+        showingFavorites = true
+    }
+    
+    func hideFavorites() {
+        showingFavorites = false
+    }
+    
+    func hidePreviousAnswer() {
+        showingPreviousAnswer = false
+    }
+    
+    func hideNoPreviousAnswerAlert() {
+        showingNoPreviousAnswerAlert = false
+    }
+    
+    func removeFromFavorites(_ answer: Answer) {
+        dataManager.removeFromFavorites(answer)
+        // Reload favorites list
+        loadAnsweredDays()
     }
     
     // MARK: - Computed Properties
