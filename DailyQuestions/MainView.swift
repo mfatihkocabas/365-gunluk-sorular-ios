@@ -2,6 +2,8 @@ import SwiftUI
 import Foundation
 
 struct MainView: View {
+    @State private var showTutorial = !UserDefaults.standard.bool(forKey: "hasSeenTutorial")
+    
     var body: some View {
         TabView {
             TodayViewExact()
@@ -29,6 +31,14 @@ struct MainView: View {
                 }
         }
         .accentColor(Color(red: 1.0, green: 0.27, blue: 0.27))
+        .fullScreenCover(isPresented: $showTutorial) {
+            TutorialView(isPresented: $showTutorial)
+        }
+        .onAppear {
+            if showTutorial {
+                UserDefaults.standard.set(true, forKey: "hasSeenTutorial")
+            }
+        }
     }
 }
 
@@ -232,6 +242,8 @@ struct CalendarViewExact: View {
 // MARK: - Settings View
 struct SettingsViewExact: View {
     @State private var isNotificationsEnabled = true
+    @State private var showingAboutSheet = false
+    @State private var showingTutorial = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -245,7 +257,7 @@ struct SettingsViewExact: View {
                 
                 Spacer()
                 
-                Text("Ayarlar")
+                Text("Profil")
                     .font(.system(size: 18, weight: .medium))
                     .foregroundColor(.black)
                 
@@ -263,78 +275,60 @@ struct SettingsViewExact: View {
             
             // Settings Content
             ScrollView {
-                VStack(spacing: 0) {
-                    // Hesap Section
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("Hesap")
+                VStack(spacing: 20) {
+                    // Profil Section
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Profil")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.black)
                             .padding(.horizontal, 20)
-                            .padding(.bottom, 15)
                         
-                        // Profile Item
-                        Button(action: {}) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "person.circle.fill")
-                                    .font(.system(size: 24))
-                                    .foregroundColor(.gray)
-                                
-                                Text("Profil")
-                                    .font(.system(size: 16))
+                        HStack(spacing: 12) {
+                            Image(systemName: "person.circle.fill")
+                                .font(.system(size: 32))
+                                .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Kullanıcı")
+                                    .font(.system(size: 18, weight: .medium))
                                     .foregroundColor(.black)
                                 
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
+                                Text("Günlük düşünce yazarı")
                                     .font(.system(size: 14))
                                     .foregroundColor(.gray)
                             }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 16)
-                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+                            
+                            Spacer()
                         }
-                        
-                        // Export Data Item
-                        Button(action: {}) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "square.and.arrow.up")
-                                    .font(.system(size: 24))
-                                    .foregroundColor(.gray)
-                                
-                                Text("Verileri Dışa Aktar")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.black)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.gray)
-                            }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 16)
-                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
-                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 16)
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                        .padding(.horizontal, 20)
                     }
-                    .padding(.bottom, 30)
                     
                     // Bildirimler Section
-                    VStack(alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading, spacing: 15) {
                         Text("Bildirimler")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.black)
                             .padding(.horizontal, 20)
-                            .padding(.bottom, 15)
                         
-                        // Notifications Toggle
                         HStack(spacing: 12) {
                             Image(systemName: "bell.fill")
                                 .font(.system(size: 24))
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
                             
-                            Text("Bildirimler")
-                                .font(.system(size: 16))
-                                .foregroundColor(.black)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Bildirimler")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.black)
+                                
+                                Text("Favori sorular için hatırlatma")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
+                            }
                             
                             Spacer()
                             
@@ -343,62 +337,114 @@ struct SettingsViewExact: View {
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 16)
-                        .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                        .padding(.horizontal, 20)
                     }
-                    .padding(.bottom, 30)
                     
                     // Uygulama Section
-                    VStack(alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading, spacing: 15) {
                         Text("Uygulama")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.black)
                             .padding(.horizontal, 20)
-                            .padding(.bottom, 15)
                         
-                        // Theme Item
-                        Button(action: {}) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "paintbrush.fill")
-                                    .font(.system(size: 24))
-                                    .foregroundColor(.gray)
-                                
-                                Text("Tema")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.black)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.gray)
+                        VStack(spacing: 8) {
+                            // Hakkında
+                            Button(action: { showingAboutSheet = true }) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "info.circle.fill")
+                                        .font(.system(size: 24))
+                                        .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Hakkında")
+                                            .font(.system(size: 16, weight: .medium))
+                                            .foregroundColor(.black)
+                                        
+                                        Text("Uygulama detayları ve bilgiler")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 16)
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
                             }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 16)
-                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
-                        }
-                        
-                        // About Item
-                        Button(action: {}) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "info.circle.fill")
-                                    .font(.system(size: 24))
-                                    .foregroundColor(.gray)
-                                
-                                Text("Hakkında")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.black)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.gray)
+                            
+                            // Tutorial
+                            Button(action: { showingTutorial = true }) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "questionmark.circle.fill")
+                                        .font(.system(size: 24))
+                                        .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Nasıl Kullanılır?")
+                                            .font(.system(size: 16, weight: .medium))
+                                            .foregroundColor(.black)
+                                        
+                                        Text("Tutorial'ı tekrar izleyin")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 16)
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
                             }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 16)
-                            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
+                            
+                            // Tüm Verileri Sil
+                            Button(action: {}) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "trash.fill")
+                                        .font(.system(size: 24))
+                                        .foregroundColor(.red)
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text("Tüm Verileri Sil")
+                                            .font(.system(size: 16, weight: .medium))
+                                            .foregroundColor(.red)
+                                        
+                                        Text("Dikkat: Bu işlem geri alınamaz")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 16)
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                            }
                         }
+                        .padding(.horizontal, 20)
                     }
+                    
+                    Spacer(minLength: 30)
                 }
                 .padding(.top, 20)
             }
@@ -407,7 +453,12 @@ struct SettingsViewExact: View {
             Spacer()
         }
         .background(Color(red: 0.99, green: 0.98, blue: 0.96))
-        .navigationBarHidden(true)
+        .sheet(isPresented: $showingAboutSheet) {
+            AboutSheet()
+        }
+        .fullScreenCover(isPresented: $showingTutorial) {
+            TutorialView(isPresented: $showingTutorial)
+        }
     }
 }
 

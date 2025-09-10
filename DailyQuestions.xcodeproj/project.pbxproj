@@ -21,6 +21,8 @@
 		AA027 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA028 /* TodayView.swift */; };
 		AA029 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA030 /* FavoritesView.swift */; };
 		AA031 /* PreviousAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA032 /* PreviousAnswerView.swift */; };
+		AA033 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA034 /* TutorialView.swift */; };
+		AA035 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA036 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		AA028 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		AA030 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		AA032 /* PreviousAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAnswerView.swift; sourceTree = "<group>"; };
+		AA034 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		AA036 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,8 @@
 				AA028 /* TodayView.swift */,
 				AA030 /* FavoritesView.swift */,
 				AA032 /* PreviousAnswerView.swift */,
+				AA034 /* TutorialView.swift */,
+				AA036 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,6 +225,8 @@
 				AA027 /* TodayView.swift in Sources */,
 				AA029 /* FavoritesView.swift in Sources */,
 				AA031 /* PreviousAnswerView.swift in Sources */,
+				AA033 /* TutorialView.swift in Sources */,
+				AA035 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +376,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dailyquestions.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cark.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -400,7 +408,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dailyquestions.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cark.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

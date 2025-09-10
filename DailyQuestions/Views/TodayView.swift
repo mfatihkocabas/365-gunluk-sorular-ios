@@ -7,9 +7,7 @@ struct TodayViewExact: View {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "tr_TR")
         formatter.dateFormat = "d MMMM yyyy"
-        // Test için geçici tarih: Bugünün tarihi
-        let testDate = Date()
-        return formatter.string(from: testDate)
+        return formatter.string(from: Date())
     }
     
     var body: some View {

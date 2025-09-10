@@ -2,8 +2,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
-    @State private var showingExportSheet = false
     @State private var showingAboutSheet = false
+    @State private var showingTutorial = false
     
     var body: some View {
         NavigationView {
@@ -11,28 +11,22 @@ struct SettingsView: View {
                 // Profil Bölümü
                 ProfileSection()
                 
-                // Veri Yönetimi
-                DataManagementSection(
-                    viewModel: viewModel,
-                    showingExportSheet: $showingExportSheet
-                )
-                
                 // Bildirimler
                 NotificationSection(viewModel: viewModel)
                 
                 // Uygulama Bilgileri
-                AppInfoSection(showingAboutSheet: $showingAboutSheet)
+                AppInfoSection(showingAboutSheet: $showingAboutSheet, showingTutorial: $showingTutorial)
                 
-                // Gelişmiş Ayarlar
-                AdvancedSection(viewModel: viewModel)
+                // Basit Ayarlar
+                SimpleSettingsSection(viewModel: viewModel)
             }
             .navigationTitle("Ayarlar")
             .navigationBarTitleDisplayMode(.large)
-            .sheet(isPresented: $showingExportSheet) {
-                ExportDataSheet(viewModel: viewModel)
-            }
             .sheet(isPresented: $showingAboutSheet) {
                 AboutSheet()
+            }
+            .fullScreenCover(isPresented: $showingTutorial) {
+                TutorialView(isPresented: $showingTutorial)
             }
         }
     }
@@ -64,37 +58,20 @@ struct ProfileSection: View {
     }
 }
 
-// MARK: - Data Management Section
-struct DataManagementSection: View {
+// MARK: - Simple Settings Section
+struct SimpleSettingsSection: View {
     @ObservedObject var viewModel: SettingsViewModel
-    @Binding var showingExportSheet: Bool
     
     var body: some View {
-        Section("Veri Yönetimi") {
+        Section("Ayarlar") {
             SettingsRow(
-                icon: "square.and.arrow.up",
-                title: "Verileri Dışa Aktar",
-                subtitle: "Cevaplarınızı PDF veya metin olarak kaydedin",
-                color: .blue
+                icon: "textformat.size",
+                title: "Yazı Boyutu",
+                subtitle: viewModel.fontSizeDescription,
+                color: .brown
             ) {
-                showingExportSheet = true
+                viewModel.showFontSizePicker()
             }
-            
-            SettingsRow(
-                icon: "icloud.and.arrow.up",
-                title: "iCloud Yedekleme",
-                subtitle: "Verilerinizi iCloud'a yedekleyin",
-                color: .green
-            ) {
-                viewModel.toggleiCloudSync()
-            }
-            .overlay(
-                HStack {
-                    Spacer()
-                    Toggle("", isOn: $viewModel.isiCloudSyncEnabled)
-                        .labelsHidden()
-                }
-            )
             
             SettingsRow(
                 icon: "trash",
@@ -156,6 +133,7 @@ struct NotificationSection: View {
 // MARK: - App Info Section
 struct AppInfoSection: View {
     @Binding var showingAboutSheet: Bool
+    @Binding var showingTutorial: Bool
     
     var body: some View {
         Section("Uygulama") {
@@ -166,6 +144,15 @@ struct AppInfoSection: View {
                 color: .blue
             ) {
                 showingAboutSheet = true
+            }
+            
+            SettingsRow(
+                icon: "questionmark.circle",
+                title: "Nasıl Kullanılır?",
+                subtitle: "Tutorial'ı tekrar izleyin",
+                color: .green
+            ) {
+                showingTutorial = true
             }
             
             SettingsRow(
@@ -181,7 +168,7 @@ struct AppInfoSection: View {
                 icon: "envelope",
                 title: "Geri Bildirim Gönder",
                 subtitle: "Önerilerinizi paylaşın",
-                color: .green
+                color: .purple
             ) {
                 // Mail gönderme kodu buraya
             }
@@ -189,48 +176,6 @@ struct AppInfoSection: View {
     }
 }
 
-// MARK: - Advanced Section
-struct AdvancedSection: View {
-    @ObservedObject var viewModel: SettingsViewModel
-    
-    var body: some View {
-        Section("Gelişmiş") {
-            SettingsRow(
-                icon: "paintbrush",
-                title: "Karanlık Mod",
-                subtitle: "Görünüm temasını değiştirin",
-                color: .indigo
-            ) {
-                viewModel.toggleDarkMode()
-            }
-            .overlay(
-                HStack {
-                    Spacer()
-                    Toggle("", isOn: $viewModel.isDarkModeEnabled)
-                        .labelsHidden()
-                }
-            )
-            
-            SettingsRow(
-                icon: "textformat.size",
-                title: "Yazı Boyutu",
-                subtitle: viewModel.fontSizeDescription,
-                color: .brown
-            ) {
-                viewModel.showFontSizePicker()
-            }
-            
-            SettingsRow(
-                icon: "gear",
-                title: "Gelişmiş Ayarlar",
-                subtitle: "Debug ve test seçenekleri",
-                color: .gray
-            ) {
-                viewModel.showAdvancedSettings()
-            }
-        }
-    }
-}
 
 // MARK: - Settings Row
 struct SettingsRow: View {
@@ -266,106 +211,6 @@ struct SettingsRow: View {
     }
 }
 
-// MARK: - Export Data Sheet
-struct ExportDataSheet: View {
-    @ObservedObject var viewModel: SettingsViewModel
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 60))
-                    .foregroundColor(.accent)
-                    .padding(.top, 40)
-                
-                Text("Verilerinizi Dışa Aktarın")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primaryText)
-                
-                Text("Cevaplarınızı farklı formatlarda dışa aktarabilirsiniz")
-                    .font(.body)
-                    .foregroundColor(.secondaryText)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                
-                VStack(spacing: 16) {
-                    ExportOptionButton(
-                        title: "PDF Olarak Dışa Aktar",
-                        subtitle: "Güzel formatlanmış PDF dosyası",
-                        icon: "doc.richtext",
-                        color: .red
-                    ) {
-                        viewModel.exportAsPDF()
-                    }
-                    
-                    ExportOptionButton(
-                        title: "Metin Dosyası Olarak Dışa Aktar",
-                        subtitle: "Düz metin formatında",
-                        icon: "doc.text",
-                        color: .blue
-                    ) {
-                        viewModel.exportAsText()
-                    }
-                    
-                    ExportOptionButton(
-                        title: "JSON Olarak Dışa Aktar",
-                        subtitle: "Geliştiriciler için",
-                        icon: "doc.plaintext",
-                        color: .green
-                    ) {
-                        viewModel.exportAsJSON()
-                    }
-                }
-                .padding()
-                
-                Spacer()
-            }
-            .navigationTitle("Dışa Aktarma")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: Button("Kapat") { dismiss() })
-        }
-    }
-}
-
-// MARK: - Export Option Button
-struct ExportOptionButton: View {
-    let title: String
-    let subtitle: String
-    let icon: String
-    let color: Color
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 16) {
-                Image(systemName: icon)
-                    .font(.title2)
-                    .foregroundColor(color)
-                    .frame(width: 30)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(title)
-                        .font(.headline)
-                        .foregroundColor(.primaryText)
-                    
-                    Text(subtitle)
-                        .font(.caption)
-                        .foregroundColor(.secondaryText)
-                }
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.secondaryText)
-            }
-            .padding()
-            .cardStyle()
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
 
 // MARK: - About Sheet
 struct AboutSheet: View {
@@ -378,7 +223,7 @@ struct AboutSheet: View {
                     // App Icon
                     Image(systemName: "book.circle.fill")
                         .font(.system(size: 80))
-                        .foregroundColor(.accent)
+                        .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
                         .padding(.top, 40)
                     
                     // App Info
@@ -386,46 +231,93 @@ struct AboutSheet: View {
                         Text("365 Günlük Sorular")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.primaryText)
+                            .foregroundColor(.black)
                         
                         Text("Sürüm 1.0.0")
                             .font(.subheadline)
-                            .foregroundColor(.secondaryText)
+                            .foregroundColor(.gray)
                     }
                     
                     // Description
-                    Text("Her gün bir soru ile düşüncelerinizi kaydedin ve bir yıl sonra nasıl değiştiğinizi görün. Kişisel gelişim yolculuğunuzda yanınızdayız.")
-                        .font(.body)
-                        .foregroundColor(.primaryText)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
+                    VStack(spacing: 16) {
+                        Text("Her gün bir soru ile düşüncelerinizi kaydedin ve bir yıl sonra nasıl değiştiğinizi görün. Kişisel gelişim yolculuğunuzda yanınızdayız.")
+                            .font(.body)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                        
+                        Text("Bu uygulama ile:")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                            .padding(.top)
+                    }
                     
                     // Features
-                    VStack(alignment: .leading, spacing: 12) {
-                        FeatureRow(icon: "calendar", title: "365 Benzersiz Soru")
-                        FeatureRow(icon: "heart.fill", title: "Favori Sorular ve Hatırlatmalar")
-                        FeatureRow(icon: "clock.arrow.circlepath", title: "Geçmiş Karşılaştırma")
-                        FeatureRow(icon: "chart.bar.fill", title: "İstatistikler ve Analizler")
-                        FeatureRow(icon: "lock.fill", title: "Verileriniz Güvende")
+                    VStack(alignment: .leading, spacing: 16) {
+                        FeatureRow(icon: "calendar", title: "365 Benzersiz Soru", description: "Her gün için özel olarak hazırlanmış sorular")
+                        FeatureRow(icon: "heart.fill", title: "Favori Sorular", description: "Önemli soruları favorilere ekleyin ve 1 yıl sonra hatırlatma alın")
+                        FeatureRow(icon: "clock.arrow.circlepath", title: "Zaman Kapsülü", description: "Geçmiş cevaplarınızı karşılaştırın ve değişiminizi görün")
+                        FeatureRow(icon: "chart.bar.fill", title: "İstatistikler", description: "Cevaplarınızın analizi ve görselleştirmesi")
+                        FeatureRow(icon: "lock.fill", title: "Güvenlik", description: "Tüm verileriniz cihazınızda güvenle saklanır")
+                        FeatureRow(icon: "bell", title: "Akıllı Bildirimler", description: "Sadece favori sorularınız için 1 yıl sonra hatırlatma")
                     }
                     .padding()
-                    .cardStyle()
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                    
+                    // How it works
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Nasıl Çalışır?")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            HowItWorksStep(number: "1", title: "Günlük Soru", description: "Her gün uygulamayı açın ve o günün sorusunu görün")
+                            HowItWorksStep(number: "2", title: "Cevabınızı Yazın", description: "Düşüncelerinizi, duygularınızı ve deneyimlerinizi kaydedin")
+                            HowItWorksStep(number: "3", title: "Favori Ekleyin", description: "Önemli soruları favorilere ekleyin (isteğe bağlı)")
+                            HowItWorksStep(number: "4", title: "Zaman Kapsülü", description: "1 yıl sonra aynı soruyu tekrar görün ve değişiminizi fark edin")
+                        }
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                    
+                    // Privacy
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Gizlilik ve Güvenlik")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                        
+                        Text("• Tüm verileriniz sadece cihazınızda saklanır")
+                        Text("• Hiçbir veri internet üzerinden gönderilmez")
+                        Text("• Verileriniz tamamen size aittir")
+                        Text("• Uygulama silindiğinde tüm veriler silinir")
+                    }
+                    .font(.body)
+                    .foregroundColor(.black)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
                     
                     // Developer Info
                     VStack(spacing: 8) {
                         Text("❤️ ile geliştirildi")
                             .font(.caption)
-                            .foregroundColor(.secondaryText)
+                            .foregroundColor(.gray)
                         
                         Text("© 2024 Günlük Sorular")
                             .font(.caption)
-                            .foregroundColor(.secondaryText)
+                            .foregroundColor(.gray)
                     }
                     
                     Spacer(minLength: 40)
                 }
                 .padding()
             }
+            .background(Color(red: 0.99, green: 0.98, blue: 0.96))
             .navigationTitle("Hakkında")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: Button("Kapat") { dismiss() })
@@ -437,17 +329,57 @@ struct AboutSheet: View {
 struct FeatureRow: View {
     let icon: String
     let title: String
+    let description: String
     
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title3)
-                .foregroundColor(.accent)
+                .foregroundColor(Color(red: 1.0, green: 0.27, blue: 0.27))
                 .frame(width: 24)
             
-            Text(title)
-                .font(.body)
-                .foregroundColor(.primaryText)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundColor(.black)
+                
+                Text(description)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            
+            Spacer()
+        }
+    }
+}
+
+// MARK: - How It Works Step
+struct HowItWorksStep: View {
+    let number: String
+    let title: String
+    let description: String
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Text(number)
+                .font(.headline)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .frame(width: 24, height: 24)
+                .background(Color(red: 1.0, green: 0.27, blue: 0.27))
+                .clipShape(Circle())
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundColor(.black)
+                
+                Text(description)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
             
             Spacer()
         }
@@ -457,8 +389,6 @@ struct FeatureRow: View {
 // MARK: - Settings ViewModel
 class SettingsViewModel: ObservableObject {
     @Published var isNotificationsEnabled = true
-    @Published var isiCloudSyncEnabled = false
-    @Published var isDarkModeEnabled = false
     @Published var notificationTime = Date()
     @Published var pendingNotificationsCount = 0
     @Published var fontSize: CGFloat = 16
@@ -474,8 +404,6 @@ class SettingsViewModel: ObservableObject {
     func loadSettings() {
         // UserDefaults'tan ayarları yükle
         isNotificationsEnabled = UserDefaults.standard.bool(forKey: "notifications_enabled")
-        isiCloudSyncEnabled = UserDefaults.standard.bool(forKey: "icloud_sync_enabled")
-        isDarkModeEnabled = UserDefaults.standard.bool(forKey: "dark_mode_enabled")
         
         if let timeData = UserDefaults.standard.object(forKey: "notification_time") as? Date {
             notificationTime = timeData
@@ -486,8 +414,6 @@ class SettingsViewModel: ObservableObject {
     
     func saveSettings() {
         UserDefaults.standard.set(isNotificationsEnabled, forKey: "notifications_enabled")
-        UserDefaults.standard.set(isiCloudSyncEnabled, forKey: "icloud_sync_enabled")
-        UserDefaults.standard.set(isDarkModeEnabled, forKey: "dark_mode_enabled")
         UserDefaults.standard.set(notificationTime, forKey: "notification_time")
         UserDefaults.standard.set(fontSize, forKey: "font_size")
     }
@@ -499,18 +425,6 @@ class SettingsViewModel: ObservableObject {
         if isNotificationsEnabled {
             notificationManager.requestPermission()
         }
-    }
-    
-    func toggleiCloudSync() {
-        isiCloudSyncEnabled.toggle()
-        saveSettings()
-        // iCloud sync implementasyonu buraya
-    }
-    
-    func toggleDarkMode() {
-        isDarkModeEnabled.toggle()
-        saveSettings()
-        // Dark mode implementasyonu buraya
     }
     
     func showDeleteAllAlert() {
@@ -529,31 +443,8 @@ class SettingsViewModel: ObservableObject {
         // Font size picker implementasyonu
     }
     
-    func showAdvancedSettings() {
-        // Advanced settings implementasyonu
-    }
-    
     func updatePendingNotificationsCount() {
         // Bekleyen bildirim sayısını güncelle
-    }
-    
-    // Export functions
-    func exportAsPDF() {
-        let answers = dataManager.getAnswersForYear(Calendar.current.component(.year, from: Date()))
-        // PDF export implementasyonu
-        print("PDF export başlatıldı: \(answers.count) cevap")
-    }
-    
-    func exportAsText() {
-        let answers = dataManager.getAnswersForYear(Calendar.current.component(.year, from: Date()))
-        // Text export implementasyonu
-        print("Text export başlatıldı: \(answers.count) cevap")
-    }
-    
-    func exportAsJSON() {
-        let answers = dataManager.getAnswersForYear(Calendar.current.component(.year, from: Date()))
-        // JSON export implementasyonu
-        print("JSON export başlatıldı: \(answers.count) cevap")
     }
     
     var fontSizeDescription: String {

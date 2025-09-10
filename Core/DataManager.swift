@@ -90,24 +90,14 @@ class DataManager: ObservableObject {
     
     // MARK: - Private Methods
     func getAllAnswers() -> [Answer] {
-        NSLog("📂 DEBUG: getAllAnswers çağrıldı")
-
         guard let data = userDefaults.data(forKey: answersKey) else {
-            NSLog("❌ DEBUG: UserDefaults'ta 'user_answers' key'i bulunamadı")
             return []
         }
-
-        NSLog("📂 DEBUG: UserDefaults'tan data alındı - Boyut: \(data.count) bytes")
 
         guard let answers = try? JSONDecoder().decode([Answer].self, from: data) else {
-            NSLog("❌ DEBUG: JSON decode hatası!")
             return []
         }
 
-        NSLog("📂 DEBUG: Başarıyla decode edildi - Cevap sayısı: \(answers.count)")
-        for answer in answers {
-            NSLog("📂 DEBUG: Cevap - Soru ID: \(answer.questionId), Tarih: \(answer.date), Metin: \(answer.text)")
-        }
         return answers
     }
     

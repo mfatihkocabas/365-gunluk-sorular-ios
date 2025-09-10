@@ -6,39 +6,44 @@ class NotificationManager: ObservableObject {
     
     private init() {}
     
-    func requestPermission() {
-        NSLog("🔔 DEBUG: Bildirim izni isteniyor...")
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            if let error = error {
-                NSLog("❌ DEBUG: Bildirim izni hatası: \(error)")
+        func requestPermission() {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                if let error = error {
+                    // Silent error handling
+                }
             }
+        }
+    
+    func scheduleOneYearReminder(for answer: Answer) {
+        guard answer.isFavorite else { 
+            return 
+        }
+        
+        // Bildirim izni kontrol et ve iste
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async {
-                NSLog("✅ DEBUG: Bildirim izni verildi: \(granted)")
+                if settings.authorizationStatus == .notDetermined {
+                    self.requestPermission { granted in
+                        if granted {
+                            self.scheduleNotification(for: answer)
+                        }
+                    }
+                } else if settings.authorizationStatus == .authorized {
+                    self.scheduleNotification(for: answer)
+                }
             }
         }
     }
     
-    func scheduleOneYearReminder(for answer: Answer) {
-        guard answer.isFavorite else { 
-            NSLog("🔔 DEBUG: Bildirim ayarlanmadı - favori değil")
-            return 
-        }
-        
-        NSLog("🔔 DEBUG: Bildirim ayarlanıyor - Soru ID: \(answer.questionId)")
-        
-        // Bildirim izni kontrol et
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            NSLog("🔔 DEBUG: Bildirim izni durumu: \(settings.authorizationStatus.rawValue)")
-            
-            if settings.authorizationStatus == .notDetermined {
-                NSLog("🔔 DEBUG: Bildirim izni isteniyor...")
-                self.requestPermission()
-            } else if settings.authorizationStatus == .denied {
-                NSLog("❌ DEBUG: Bildirim izni reddedilmiş")
-                return
+        private func requestPermission(completion: @escaping (Bool) -> Void) {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                DispatchQueue.main.async {
+                    completion(granted)
+                }
             }
         }
-        
+    
+    private func scheduleNotification(for answer: Answer) {
         let content = UNMutableNotificationContent()
         content.title = "Bir Yıl Önceki Düşüncen"
         content.body = "1 yıl önce bu soruya '\(answer.text.prefix(50))...' yazmıştın. Bugün ne düşünüyorsun?"
@@ -48,24 +53,18 @@ class NotificationManager: ObservableObject {
             "originalDate": answer.date.timeIntervalSince1970
         ]
         
-        // TEST İÇİN: 1 dakika sonra bildirim (normalde 1 yıl)
-        let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: Date()) ?? Date()
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: oneMinuteLater)
-        
-        NSLog("🔔 DEBUG: Bildirim tarihi: \(oneMinuteLater)")
+        // Gerçek 1 yıl sonra bildirim
+        let oneYearLater = Calendar.current.date(byAdding: .year, value: 1, to: answer.date) ?? Date()
+        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: oneYearLater)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
         let identifier = "reminder_\(answer.questionId)_\(answer.date.timeIntervalSince1970)"
         
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                NSLog("❌ DEBUG: Bildirim hatası: \(error)")
-            } else {
-                NSLog("✅ DEBUG: Bildirim başarıyla ayarlandı - Soru ID: \(answer.questionId)")
+            UNUserNotificationCenter.current().add(request) { error in
+                // Silent error handling
             }
-        }
     }
     
     func cancelReminder(for answer: Answer) {
@@ -78,18 +77,12 @@ class NotificationManager: ObservableObject {
         return questionId
     }
     
-    // Tüm bekleyen bildirimleri listele (debug için)
-    func listPendingNotifications() {
-        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-            print("Pending notifications: \(requests.count)")
-            for request in requests {
-                print("- \(request.identifier): \(request.content.title)")
-                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
-                    print("  Date: \(trigger.nextTriggerDate() ?? Date())")
-                }
+        // Tüm bekleyen bildirimleri listele
+        func listPendingNotifications() {
+            UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                // Silent handling
             }
         }
-    }
     
     // Geçmiş bildirimleri temizle
     func cleanupOldNotifications() {
@@ -105,7 +98,6 @@ class NotificationManager: ObservableObject {
             
             let identifiers = outdatedRequests.map { $0.identifier }
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-            print("Cleaned up \(identifiers.count) old notifications")
         }
     }
 }
