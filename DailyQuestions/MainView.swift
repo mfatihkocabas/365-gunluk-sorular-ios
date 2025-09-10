@@ -3,32 +3,37 @@ import Foundation
 
 struct MainView: View {
     @State private var showTutorial = !UserDefaults.standard.bool(forKey: "hasSeenTutorial")
+    @State private var selectedTab = 0
     
     var body: some View {
-        TabView {
-            TodayViewExact()
+        TabView(selection: $selectedTab) {
+            TodayViewExact(selectedTab: $selectedTab)
                 .tabItem {
                     Image(systemName: "circle.fill")
                     Text("Günün Sorusu")
                 }
+                .tag(0)
             
-            FavoritesViewExact()
+            FavoritesViewExact(selectedTab: $selectedTab)
                 .tabItem {
                     Image(systemName: "heart.fill")
                     Text("Favoriler")
                 }
+                .tag(1)
             
-            CalendarViewExact()
+            CalendarViewExact(selectedTab: $selectedTab)
                 .tabItem {
                     Image(systemName: "calendar")
                     Text("Geçmiş")
                 }
+                .tag(2)
             
-            SettingsViewExact()
+            SettingsViewExact(selectedTab: $selectedTab)
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profil")
                 }
+                .tag(3)
         }
         .accentColor(Color(red: 1.0, green: 0.27, blue: 0.27))
         .fullScreenCover(isPresented: $showTutorial) {
@@ -46,6 +51,7 @@ struct MainView: View {
 struct CalendarViewExact: View {
     @StateObject private var viewModel = MainViewModel()
     @State private var currentDate = Date()
+    @Binding var selectedTab: Int
     private let weekDays = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"]
     
     private var currentMonth: String {
@@ -71,7 +77,9 @@ struct CalendarViewExact: View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Button(action: {}) {
+                Button(action: {
+                    selectedTab = 0 // Ana sayfaya dön
+                }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.black)
@@ -244,12 +252,15 @@ struct SettingsViewExact: View {
     @State private var isNotificationsEnabled = true
     @State private var showingAboutSheet = false
     @State private var showingTutorial = false
+    @Binding var selectedTab: Int
     
     var body: some View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Button(action: {}) {
+                Button(action: {
+                    selectedTab = 0 // Ana sayfaya dön
+                }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.black)

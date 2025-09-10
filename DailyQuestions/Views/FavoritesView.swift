@@ -2,12 +2,15 @@ import SwiftUI
 
 struct FavoritesViewExact: View {
     @State private var favoriteAnswers: [Answer] = []
+    @Binding var selectedTab: Int
     
     var body: some View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Button(action: {}) {
+                Button(action: {
+                    selectedTab = 0 // Ana sayfaya dön
+                }) {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.black)
@@ -122,5 +125,5 @@ struct FavoritesViewExact: View {
 }
 
 #Preview {
-    FavoritesViewExact()
+    FavoritesViewExact(selectedTab: .constant(0))
 }

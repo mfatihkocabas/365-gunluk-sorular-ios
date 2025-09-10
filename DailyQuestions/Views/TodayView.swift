@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TodayViewExact: View {
     @StateObject private var viewModel = MainViewModel()
+    @Binding var selectedTab: Int
     
     private var currentDateString: String {
         let formatter = DateFormatter()
@@ -16,7 +17,9 @@ struct TodayViewExact: View {
             VStack(spacing: 0) {
                 // Navigation Header
                 HStack {
-                    Button(action: {}) {
+                    Button(action: {
+                        // Ana sayfada olduğumuz için geri butonu gizli kalabilir
+                    }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 18, weight: .medium))
                             .foregroundColor(.black)
@@ -232,5 +235,5 @@ struct TodayViewExact: View {
 }
 
 #Preview {
-    TodayViewExact()
+    TodayViewExact(selectedTab: .constant(0))
 }
