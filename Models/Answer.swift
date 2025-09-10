@@ -9,11 +9,11 @@ struct Answer: Codable, Identifiable {
     let emoji: String?
     let mood: MoodType?
     
-    init(questionId: Int, text: String, isFavorite: Bool = false, emoji: String? = nil, mood: MoodType? = nil) {
+    init(questionId: Int, text: String, isFavorite: Bool = false, emoji: String? = nil, mood: MoodType? = nil, date: Date = Date()) {
         self.id = UUID()
         self.questionId = questionId
         self.text = text
-        self.date = Date()
+        self.date = date
         self.isFavorite = isFavorite
         self.emoji = emoji
         self.mood = mood

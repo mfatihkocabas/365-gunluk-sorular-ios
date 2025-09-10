@@ -12,27 +12,47 @@ class DataManager: ObservableObject {
     
     // MARK: - Answer Operations
     func saveAnswer(_ answer: Answer) {
+        print("💾 DEBUG: saveAnswer çağrıldı - Soru ID: \(answer.questionId), Tarih: \(answer.date), Metin: \(answer.text)")
+        
         var allAnswers = getAllAnswers()
+        print("💾 DEBUG: Mevcut cevap sayısı: \(allAnswers.count)")
         
         // Aynı gün için zaten cevap var mı kontrol et
         if let existingIndex = allAnswers.firstIndex(where: {
             Calendar.current.isDate($0.date, inSameDayAs: answer.date) && $0.questionId == answer.questionId
         }) {
-            // Güncelle
+            print("💾 DEBUG: Mevcut cevap güncelleniyor - Index: \(existingIndex)")
             allAnswers[existingIndex] = answer
         } else {
-            // Yeni ekle
+            print("💾 DEBUG: Yeni cevap ekleniyor")
             allAnswers.append(answer)
         }
         
+        print("💾 DEBUG: Güncellenmiş cevap sayısı: \(allAnswers.count)")
         saveAllAnswers(allAnswers)
     }
     
     func getAnswer(for questionId: Int, date: Date = Date()) -> Answer? {
+        print("🔍 DEBUG: getAnswer çağrıldı - Soru ID: \(questionId), Tarih: \(date)")
+        
         let allAnswers = getAllAnswers()
-        return allAnswers.first { answer in
+        print("🔍 DEBUG: Tüm cevaplar: \(allAnswers.count)")
+        
+        for answer in allAnswers {
+            print("🔍 DEBUG: Cevap - Soru ID: \(answer.questionId), Tarih: \(answer.date), Metin: \(answer.text)")
+        }
+        
+        let result = allAnswers.first { answer in
             Calendar.current.isDate(answer.date, inSameDayAs: date) && answer.questionId == questionId
         }
+        
+        if let result = result {
+            print("✅ DEBUG: Cevap bulundu: \(result.text)")
+        } else {
+            print("❌ DEBUG: Cevap bulunamadı")
+        }
+        
+        return result
     }
     
     func getAnswersForYear(_ year: Int) -> [Answer] {
@@ -69,17 +89,41 @@ class DataManager: ObservableObject {
     }
     
     // MARK: - Private Methods
-    private func getAllAnswers() -> [Answer] {
-        guard let data = userDefaults.data(forKey: answersKey),
-              let answers = try? JSONDecoder().decode([Answer].self, from: data) else {
+    func getAllAnswers() -> [Answer] {
+        NSLog("📂 DEBUG: getAllAnswers çağrıldı")
+
+        guard let data = userDefaults.data(forKey: answersKey) else {
+            NSLog("❌ DEBUG: UserDefaults'ta 'user_answers' key'i bulunamadı")
             return []
+        }
+
+        NSLog("📂 DEBUG: UserDefaults'tan data alındı - Boyut: \(data.count) bytes")
+
+        guard let answers = try? JSONDecoder().decode([Answer].self, from: data) else {
+            NSLog("❌ DEBUG: JSON decode hatası!")
+            return []
+        }
+
+        NSLog("📂 DEBUG: Başarıyla decode edildi - Cevap sayısı: \(answers.count)")
+        for answer in answers {
+            NSLog("📂 DEBUG: Cevap - Soru ID: \(answer.questionId), Tarih: \(answer.date), Metin: \(answer.text)")
         }
         return answers
     }
     
     private func saveAllAnswers(_ answers: [Answer]) {
+        print("💾 DEBUG: saveAllAnswers çağrıldı - Cevap sayısı: \(answers.count)")
+        
         if let data = try? JSONEncoder().encode(answers) {
             userDefaults.set(data, forKey: answersKey)
+            print("💾 DEBUG: UserDefaults'a kaydedildi - Key: \(answersKey), Boyut: \(data.count) bytes")
+            
+            // Kayıt sonrası kontrol
+            if let savedData = userDefaults.data(forKey: answersKey) {
+                print("💾 DEBUG: Kayıt sonrası kontrol - Kayıtlı data boyutu: \(savedData.count) bytes")
+            }
+        } else {
+            print("❌ DEBUG: JSON encode hatası!")
         }
     }
     

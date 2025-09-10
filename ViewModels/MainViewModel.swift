@@ -30,14 +30,18 @@ class MainViewModel: ObservableObject {
     
     // MARK: - Public Methods
     func loadTodayQuestion() {
-        let dayOfYear = Calendar.current.dayOfYear(for: Date()) ?? 1
+        // Test için geçici tarih: Bugünün tarihi (bildirim test için)
+        let testDate = Date()
+        let dayOfYear = Calendar.current.dayOfYear(for: testDate) ?? 1
         todayQuestion = questionManager.getQuestion(for: dayOfYear)
     }
     
     func loadTodayAnswer() {
         guard let question = todayQuestion else { return }
         
-        if let answer = dataManager.getAnswer(for: question.id, date: Date()) {
+        // Test için geçici tarih: Bugünün tarihi (bildirim test için)
+        let testDate = Date()
+        if let answer = dataManager.getAnswer(for: question.id, date: testDate) {
             todayAnswer = answer
             answerText = answer.text
             selectedEmoji = answer.emoji
@@ -73,12 +77,26 @@ class MainViewModel: ObservableObject {
     }
     
     func saveAnswer() {
-        guard let question = todayQuestion else { return }
-        guard answerText.isNotEmpty else { return }
+        print("🚀 DEBUG: saveAnswer çağrıldı")
+        
+        guard let question = todayQuestion else { 
+            print("❌ DEBUG: todayQuestion nil")
+            return 
+        }
+        guard answerText.isNotEmpty else { 
+            print("❌ DEBUG: answerText boş")
+            return 
+        }
+        
+        print("🚀 DEBUG: Soru ID: \(question.id), Metin: \(answerText)")
+        
+        // Test için geçici tarih: Bugünün tarihi (bildirim test için)
+        let testDate = Date()
+        print("🚀 DEBUG: Test tarihi: \(testDate)")
         
         // Günde tek kayıt kontrolü - Bugün için zaten cevap var mı?
-        if dataManager.getAnswer(for: question.id, date: Date()) != nil {
-            // Bugün için zaten cevap verilmiş
+        if dataManager.getAnswer(for: question.id, date: testDate) != nil {
+            print("❌ DEBUG: Bugün için zaten cevap verilmiş")
             return
         }
         
@@ -89,24 +107,32 @@ class MainViewModel: ObservableObject {
             text: answerText.trimmed,
             isFavorite: isFavorite,
             emoji: selectedEmoji,
-            mood: selectedMood
+            mood: selectedMood,
+            date: testDate
         )
         
+        NSLog("🚀 DEBUG: Answer oluşturuldu - ID: \(answer.id), Soru ID: \(answer.questionId), Tarih: \(answer.date)")
+        
         dataManager.saveAnswer(answer)
+        NSLog("🚀 DEBUG: dataManager.saveAnswer çağrıldı")
         
         // Takvime bugünü kaydet ve disable et
         let today = Date()
         answeredDays.insert(today)
         dataManager.markDayAsAnswered(today)
+        NSLog("🚀 DEBUG: markDayAsAnswered çağrıldı")
         
         // Favori ise bildirim ayarla ve favori sayfasına ekle
         if isFavorite {
+            NSLog("🔔 DEBUG: Favori cevap - bildirim ayarlanıyor")
             notificationManager.scheduleOneYearReminder(for: answer)
             dataManager.addToFavorites(answer)
+            NSLog("🚀 DEBUG: Favori işlemleri tamamlandı")
         } else if let existingAnswer = todayAnswer, existingAnswer.isFavorite {
             // Favori olmaktan çıkarıldıysa bildirimi iptal et ve favorilerden kaldır
             notificationManager.cancelReminder(for: existingAnswer)
             dataManager.removeFromFavorites(existingAnswer)
+            NSLog("🚀 DEBUG: Favori kaldırma işlemleri tamamlandı")
         }
         
         todayAnswer = answer
@@ -114,6 +140,8 @@ class MainViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
         }
+        
+        NSLog("🚀 DEBUG: saveAnswer tamamlandı")
     }
     
     func toggleFavorite() {
@@ -154,11 +182,7 @@ class MainViewModel: ObservableObject {
     
     // MARK: - Navigation Functions
     func showTimeCapsule() {
-        if hasPreviousAnswers {
-            showingPreviousAnswer = true
-        } else {
-            showingNoPreviousAnswerAlert = true
-        }
+        showPreviousAnswer()
     }
     
     func showCalendar() {
@@ -185,6 +209,55 @@ class MainViewModel: ObservableObject {
         showingNoPreviousAnswerAlert = false
     }
     
+    func showPreviousAnswer() {
+        NSLog("🚀 DEBUG: showPreviousAnswer çağrıldı")
+        
+        guard let question = todayQuestion else { 
+            NSLog("❌ DEBUG: todayQuestion nil")
+            return 
+        }
+        
+        NSLog("🚀 DEBUG: Mevcut soru ID: \(question.id)")
+        
+        // Test için geçici tarih: Bugünün tarihi (bildirim test için)
+        let testDate = Date()
+        NSLog("🚀 DEBUG: Test tarihi: \(testDate)")
+        
+        var foundAnswers: [Answer] = []
+        
+        // Debug: Tüm cevapları kontrol et
+        let allAnswers = dataManager.getAllAnswers()
+        NSLog("🔍 DEBUG: Tüm kayıtlı cevaplar:")
+        NSLog("🔍 DEBUG: Cevap sayısı: \(allAnswers.count)")
+        for answer in allAnswers {
+            NSLog("  - Soru ID: \(answer.questionId), Tarih: \(answer.date), Metin: \(answer.text)")
+        }
+        
+        // Son 5 yılı kontrol et
+        for yearOffset in 1...5 {
+            if let previousYearDate = Calendar.current.date(byAdding: .year, value: -yearOffset, to: testDate) {
+                NSLog("🔍 DEBUG: \(yearOffset) yıl önceki tarih: \(previousYearDate)")
+                if let answer = dataManager.getAnswer(for: question.id, date: previousYearDate) {
+                    NSLog("✅ DEBUG: Cevap bulundu: \(answer.text)")
+                    foundAnswers.append(answer)
+                } else {
+                    NSLog("❌ DEBUG: Cevap bulunamadı")
+                }
+            }
+        }
+        
+        if !foundAnswers.isEmpty {
+            // Tarihe göre sırala (en yeni en üstte)
+            previousYearAnswers = foundAnswers.sorted { $0.date > $1.date }
+            showingPreviousAnswer = true
+            NSLog("✅ DEBUG: Zaman kapsülü gösteriliyor")
+        } else {
+            // Hiçbir geçmiş cevap yok
+            showingNoPreviousAnswerAlert = true
+            NSLog("❌ DEBUG: Hiçbir geçmiş cevap bulunamadı")
+        }
+    }
+    
     func removeFromFavorites(_ answer: Answer) {
         dataManager.removeFromFavorites(answer)
         // Reload favorites list
@@ -194,12 +267,17 @@ class MainViewModel: ObservableObject {
     // MARK: - Computed Properties
     var canSave: Bool {
         guard let question = todayQuestion else { return false }
-        let alreadyAnsweredToday = dataManager.getAnswer(for: question.id, date: Date()) != nil
+        // Test için geçici tarih: Bugünün tarihi (bildirim test için)
+        let testDate = Date()
+        let alreadyAnsweredToday = dataManager.getAnswer(for: question.id, date: testDate) != nil
         return answerText.isNotEmpty && !isLoading && !alreadyAnsweredToday
     }
     
     var hasAnsweredToday: Bool {
-        todayAnswer != nil
+        guard let question = todayQuestion else { return false }
+        // Test için geçici tarih: Bugünün tarihi (bildirim test için)
+        let testDate = Date()
+        return dataManager.getAnswer(for: question.id, date: testDate) != nil
     }
     
     var hasPreviousAnswers: Bool {

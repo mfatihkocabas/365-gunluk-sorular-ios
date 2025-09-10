@@ -7,18 +7,37 @@ class NotificationManager: ObservableObject {
     private init() {}
     
     func requestPermission() {
+        NSLog("🔔 DEBUG: Bildirim izni isteniyor...")
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if let error = error {
-                print("Notification permission error: \(error)")
+                NSLog("❌ DEBUG: Bildirim izni hatası: \(error)")
             }
             DispatchQueue.main.async {
-                print("Notification permission granted: \(granted)")
+                NSLog("✅ DEBUG: Bildirim izni verildi: \(granted)")
             }
         }
     }
     
     func scheduleOneYearReminder(for answer: Answer) {
-        guard answer.isFavorite else { return }
+        guard answer.isFavorite else { 
+            NSLog("🔔 DEBUG: Bildirim ayarlanmadı - favori değil")
+            return 
+        }
+        
+        NSLog("🔔 DEBUG: Bildirim ayarlanıyor - Soru ID: \(answer.questionId)")
+        
+        // Bildirim izni kontrol et
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            NSLog("🔔 DEBUG: Bildirim izni durumu: \(settings.authorizationStatus.rawValue)")
+            
+            if settings.authorizationStatus == .notDetermined {
+                NSLog("🔔 DEBUG: Bildirim izni isteniyor...")
+                self.requestPermission()
+            } else if settings.authorizationStatus == .denied {
+                NSLog("❌ DEBUG: Bildirim izni reddedilmiş")
+                return
+            }
+        }
         
         let content = UNMutableNotificationContent()
         content.title = "Bir Yıl Önceki Düşüncen"
@@ -29,9 +48,11 @@ class NotificationManager: ObservableObject {
             "originalDate": answer.date.timeIntervalSince1970
         ]
         
-        // Tam 1 yıl sonrası için tarih hesapla
-        let oneYearLater = Calendar.current.date(byAdding: .year, value: 1, to: answer.date) ?? Date()
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: oneYearLater)
+        // TEST İÇİN: 1 dakika sonra bildirim (normalde 1 yıl)
+        let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: Date()) ?? Date()
+        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: oneMinuteLater)
+        
+        NSLog("🔔 DEBUG: Bildirim tarihi: \(oneMinuteLater)")
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
         let identifier = "reminder_\(answer.questionId)_\(answer.date.timeIntervalSince1970)"
@@ -40,9 +61,9 @@ class NotificationManager: ObservableObject {
         
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print("Notification scheduling error: \(error)")
+                NSLog("❌ DEBUG: Bildirim hatası: \(error)")
             } else {
-                print("Notification scheduled for question \(answer.questionId)")
+                NSLog("✅ DEBUG: Bildirim başarıyla ayarlandı - Soru ID: \(answer.questionId)")
             }
         }
     }

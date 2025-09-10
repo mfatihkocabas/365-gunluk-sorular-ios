@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "400"
+               BlueprintIdentifier = "AA999"
                BuildableName = "DailyQuestions.app"
                BlueprintName = "DailyQuestions"
                ReferencedContainer = "container:DailyQuestions.xcodeproj">
@@ -43,7 +43,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "400"
+            BlueprintIdentifier = "AA999"
             BuildableName = "DailyQuestions.app"
             BlueprintName = "DailyQuestions"
             ReferencedContainer = "container:DailyQuestions.xcodeproj">
@@ -60,7 +60,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "400"
+            BlueprintIdentifier = "AA999"
             BuildableName = "DailyQuestions.app"
             BlueprintName = "DailyQuestions"
             ReferencedContainer = "container:DailyQuestions.xcodeproj">
