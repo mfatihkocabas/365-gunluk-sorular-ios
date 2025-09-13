@@ -15,6 +15,10 @@ class QuestionDataManager: ObservableObject {
         return questions.first { $0.dayOfYear == dayOfYear }
     }
     
+    func getQuestion(by id: Int) -> Question? {
+        return questions.first { $0.id == id }
+    }
+    
     func getAllQuestions() -> [Question] {
         return questions
     }

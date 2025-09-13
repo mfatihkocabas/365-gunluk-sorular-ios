@@ -26,6 +26,7 @@ class MainViewModel: ObservableObject {
         loadTodayAnswer()
         loadPreviousYearAnswers()
         loadAnsweredDays()
+        checkFavoriteStatus()
     }
     
     // MARK: - Public Methods
@@ -121,6 +122,24 @@ class MainViewModel: ObservableObject {
     
     func toggleFavorite() {
         isFavorite.toggle()
+        
+        if isFavorite {
+            // Soruyu favorilere ekle
+            if let question = todayQuestion {
+                DataManager.shared.addQuestionToFavorites(question.id)
+            }
+        } else {
+            // Soruyu favorilerden kaldır
+            if let question = todayQuestion {
+                DataManager.shared.removeQuestionFromFavorites(question.id)
+            }
+        }
+    }
+    
+    private func checkFavoriteStatus() {
+        if let question = todayQuestion {
+            isFavorite = DataManager.shared.isQuestionFavorite(question.id)
+        }
     }
     
     func selectEmoji(_ emoji: String) {

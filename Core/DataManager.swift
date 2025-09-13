@@ -7,6 +7,7 @@ class DataManager: ObservableObject {
     private let answersKey = "user_answers"
     private let answeredDaysKey = "answered_days"
     private let favoritesKey = "favorite_answers"
+    private let favoriteQuestionsKey = "favorite_questions"
     
     private init() {}
     
@@ -153,5 +154,55 @@ class DataManager: ObservableObject {
         // Bu fonksiyon artık answer'ın isFavorite flag'ini kullanarak çalışıyor
         let favorites = getFavoriteAnswers()
         print("Favorilerden kaldırıldı: \(answer.text.prefix(50))")
+    }
+    
+    // MARK: - Favorite Questions Management
+    func addQuestionToFavorites(_ questionId: Int) {
+        var favoriteQuestions = getFavoriteQuestions()
+        if !favoriteQuestions.contains(questionId) {
+            favoriteQuestions.append(questionId)
+            saveFavoriteQuestions(favoriteQuestions)
+            print("Soru favorilere eklendi: \(questionId)")
+        }
+    }
+    
+    func removeQuestionFromFavorites(_ questionId: Int) {
+        var favoriteQuestions = getFavoriteQuestions()
+        favoriteQuestions.removeAll { $0 == questionId }
+        saveFavoriteQuestions(favoriteQuestions)
+        print("Soru favorilerden kaldırıldı: \(questionId)")
+    }
+    
+    func getFavoriteQuestions() -> [Int] {
+        return userDefaults.array(forKey: favoriteQuestionsKey) as? [Int] ?? []
+    }
+    
+    func isQuestionFavorite(_ questionId: Int) -> Bool {
+        return getFavoriteQuestions().contains(questionId)
+    }
+    
+    private func saveFavoriteQuestions(_ questions: [Int]) {
+        userDefaults.set(questions, forKey: favoriteQuestionsKey)
+    }
+    
+    func getFavoriteQuestionsWithDetails() -> [(question: Question, date: Date)] {
+        let favoriteQuestionIds = getFavoriteQuestions()
+        var result: [(question: Question, date: Date)] = []
+        
+        for questionId in favoriteQuestionIds {
+            if let question = QuestionDataManager.shared.getQuestion(by: questionId) {
+                // Bu sorunun hangi günde olduğunu bulalım
+                let dayOfYear = question.dayOfYear
+                let currentYear = Calendar.current.component(.year, from: Date())
+                
+                // Bu yıl için bu günün tarihini oluşturalım
+                if let date = Calendar.current.date(from: DateComponents(year: currentYear, day: dayOfYear)) {
+                    result.append((question: question, date: date))
+                }
+            }
+        }
+        
+        // Tarihe göre sıralayalım (en yakın tarih önce)
+        return result.sorted { $0.date < $1.date }
     }
 }

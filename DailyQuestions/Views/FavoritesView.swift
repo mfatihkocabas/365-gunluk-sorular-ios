@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FavoritesViewExact: View {
-    @State private var favoriteAnswers: [Answer] = []
+    @State private var favoriteQuestions: [(question: Question, date: Date)] = []
     @Binding var selectedTab: Int
     
     var body: some View {
@@ -36,7 +36,7 @@ struct FavoritesViewExact: View {
             // Favorites List
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    if favoriteAnswers.isEmpty {
+                    if favoriteQuestions.isEmpty {
                         VStack(spacing: 20) {
                             Image(systemName: "heart")
                                 .font(.system(size: 48))
@@ -53,8 +53,8 @@ struct FavoritesViewExact: View {
                         }
                         .padding(.top, 100)
                     } else {
-                        ForEach(favoriteAnswers.indices, id: \.self) { index in
-                            let answer = favoriteAnswers[index]
+                        ForEach(favoriteQuestions.indices, id: \.self) { index in
+                            let favoriteItem = favoriteQuestions[index]
                             
                             VStack(spacing: 0) {
                                 HStack(alignment: .top, spacing: 12) {
@@ -66,13 +66,13 @@ struct FavoritesViewExact: View {
                                     .padding(.top, 4)
                                     
                                     VStack(alignment: .leading, spacing: 4) {
-                                        Text(answer.text)
+                                        Text(favoriteItem.question.text)
                                             .font(.system(size: 16, weight: .medium))
                                             .foregroundColor(.black)
                                             .multilineTextAlignment(.leading)
-                                            .lineLimit(2)
+                                            .lineLimit(3)
                                         
-                                        Text(formatDate(answer.date))
+                                        Text(formatDate(favoriteItem.date))
                                             .font(.system(size: 12))
                                             .foregroundColor(.gray)
                                     }
@@ -80,8 +80,8 @@ struct FavoritesViewExact: View {
                                     Spacer()
                                     
                                     Button(action: {
-                                        DataManager.shared.removeFromFavorites(answer)
-                                        favoriteAnswers = DataManager.shared.getFavoriteAnswers()
+                                        DataManager.shared.removeQuestionFromFavorites(favoriteItem.question.id)
+                                        favoriteQuestions = DataManager.shared.getFavoriteQuestionsWithDetails()
                                     }) {
                                         Image(systemName: "heart.fill")
                                             .font(.system(size: 16))
@@ -93,7 +93,7 @@ struct FavoritesViewExact: View {
                                 .padding(.vertical, 16)
                                 .background(Color(red: 0.99, green: 0.98, blue: 0.96))
                                 
-                                if index < favoriteAnswers.count - 1 {
+                                if index < favoriteQuestions.count - 1 {
                                     Rectangle()
                                         .fill(Color.gray.opacity(0.2))
                                         .frame(height: 1)
@@ -112,7 +112,7 @@ struct FavoritesViewExact: View {
         .background(Color(red: 0.99, green: 0.98, blue: 0.96))
         .navigationBarHidden(true)
         .onAppear {
-            favoriteAnswers = DataManager.shared.getFavoriteAnswers()
+            favoriteQuestions = DataManager.shared.getFavoriteQuestionsWithDetails()
         }
     }
     
